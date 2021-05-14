@@ -15,7 +15,10 @@ const Login = (props) => (
       placeholder="Enter your name"
       enterButton="Login"
       size="large"
-      onSearch={name => props.onUserNameSaved(name)}
+      onSearch={name => {
+        props.onUserNameSaved(name)
+        props.onClick();
+      }}
     />
   </div>
 )
