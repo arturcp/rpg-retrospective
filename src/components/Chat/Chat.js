@@ -62,7 +62,7 @@ export default class Chat extends Component {
     return (
       <section className="main">
         <div className="title">
-          <Text>Partner Admission - RPG Retrospective</Text>
+          <Text>Partners Admission - RPG Retrospective</Text>
         </div>
 
         {isLoggedIn && (

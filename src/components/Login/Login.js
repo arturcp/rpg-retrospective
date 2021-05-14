@@ -1,5 +1,7 @@
 import React from 'react';
 import { Input } from 'antd';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
 
 import 'antd/dist/antd.css';
 import './styles.scss';
@@ -13,9 +15,21 @@ const Login = (props) => (
       placeholder="Enter your name"
       enterButton="Login"
       size="large"
-      onSearch={props.onClick}
+      onSearch={name => props.onUserNameSaved(name)}
     />
   </div>
 )
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    userName: state.userName
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onUserNameSaved: (name) => dispatch({ type: actionTypes.SAVE_USER_NAME, name: name })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
