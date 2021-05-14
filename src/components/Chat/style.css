@@ -1,0 +1,66 @@
+.login-container {
+  padding: 200px 40px;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.login-container h2 {
+  color: #fff;
+}
+
+.main {
+  height: 100vh;
+  width: 100vw;
+  background-color: #1e2529;
+}
+
+.title {
+  text-align: center;
+  width: 100%;
+  padding: 2%;
+  background-color: #f1e76d;
+  color: #efefef;
+  font-size: 22px;
+}
+
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.ant-btn-primary {
+  background-color: #f1e76d;
+  color: #000;
+  border-color: #ccc;
+}
+
+.ant-btn-primary:hover {
+  background-color: #131103;
+  color: #fff;
+  border-color: #ccc;
+}
+
+.card {
+  width: 300px;
+  margin: 16px 4px 0 4px;
+}
+
+.right-card {
+  align-self: flex-end;
+}
+
+.left-card {
+  align-self: flex-start;
+}
+
+.ant-card-meta-detail {
+  text-align: left;
+}
