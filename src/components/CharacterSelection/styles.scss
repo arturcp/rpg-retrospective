@@ -1,0 +1,24 @@
+.character-selection-container {
+  padding: 20px 40px;
+  width: 400px;
+  margin-left: 50px;
+
+  h2 {
+    color: #fff;
+  }
+}
+
+.carousel-container > div:first-of-type {
+  margin-bottom: 20px;
+}
+
+.carousel-container > div:nth-of-type(2) {
+  background-color: #f1e76d;
+  display: table-cell;
+  border-radius: 5px;
+  padding: 7px;
+
+  img {
+    cursor: pointer;
+  }
+}
