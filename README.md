@@ -68,3 +68,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Resources
+
+Carousel: https://github.com/gutiguy/react-spring-3d-carousel#readme and https://codesandbox.io/s/1v96j74484?view=preview&file=/src/example.js:1505-1725
