@@ -10,7 +10,7 @@ const { Text } = Typography;
 const header = () => (
   <header className="header">
     <Link to="/">
-      <div class="logo">
+      <div className="logo">
         <img src={logo} alt="logo"/>
         <Text>Partner Admission Retrospective</Text>
       </div>

@@ -42,3 +42,20 @@
   width: 100vw;
   background-color: #1e2529;
 }
+
+.ant-input-group-addon {
+  .ant-btn-primary {
+    background-color: #f1e76d;
+    color: #000;
+    border-color: #ccc;
+  }
+
+  .ant-btn-primary:hover,
+  .ant-btn-primary:active,
+  .ant-btn-primary:visited,
+  .ant-btn-primary:focus {
+    background-color: #131103;
+    color: #fff;
+    border-color: #ccc;
+  }
+}
