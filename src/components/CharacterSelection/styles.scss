@@ -12,13 +12,26 @@
   margin-bottom: 20px;
 }
 
-.carousel-container > div:nth-of-type(2) {
+.navigation-bar {
   background-color: #f1e76d;
-  display: table-cell;
   border-radius: 5px;
   padding: 7px;
+  width: 235px;
+  margin: 0 auto;
+  margin-top: 25px;
 
   img {
     cursor: pointer;
+    width: 14px;
   }
+}
+
+.character-description {
+  position: absolute;
+  right: 145px;
+  width: 600px;
+  color: #fff;
+  top: 135px;
+  text-align: left;
+  font-size: 17px;
 }
