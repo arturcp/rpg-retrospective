@@ -8,18 +8,27 @@ const characterDescription = (props) => {
   return (
     <div className="character-description">
       <h2 className="title">{character.title}</h2>
-      {character.description.map(paragraph => <div className="description-paragraph">{paragraph}</div>)}
+      {character.description.map((paragraph, index) => <div key={`description-${index}`} className="description-paragraph">{paragraph}</div>)}
       <div className="player-area">
         <Player
           image={character.avatar}
           data={CONSTANTS.SPRITE_DIMENSIONS}
-          allowInteraction={false}
+          allowInteraction={true}
           initialData={{
             position: { x: 284, y: 34 },
             direction: CONSTANTS.DIRECTIONS.DOWN,
             step: CONSTANTS.MOVEMENT.STOPPED,
           }}
+          movementsRestrictions={{
+            directions: ['left', 'right', 'up', 'down'],
+            minY: 33,
+            maxY: 70,
+            maxX: 374,
+            minX: 0,
+          }}
         />
+        <div className="keyboard-hint-image"></div>
+        <div className="keyboard-hint-text">Hint: use your keyboard</div>
       </div>
     </div>
   )

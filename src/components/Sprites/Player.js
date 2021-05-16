@@ -29,7 +29,7 @@ const Player = (props) => {
     if (!movementsRestrictions || movementsRestrictions.directions.includes(movementDirection)) {
       walk(movementDirection);
 
-      if (position.x === destination.x || position.y === destination.y) {
+      if (destination && (position.x === destination.x || position.y === destination.y)) {
         destination.arrived();
       }
     }

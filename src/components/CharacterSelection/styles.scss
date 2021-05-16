@@ -55,4 +55,21 @@
 
   background: url(../../images/scenarios/initial.png) no-repeat;
   background-size: 600px 208px;
+
+  .keyboard-hint-image {
+    background-image: url(../../images/keyboard-hint.png);
+    width: 83px;
+    height: 54px;
+    position: absolute;
+    bottom: 8px;
+    right: 3px;
+    background-size: 81px 69px;
+  }
+
+  .keyboard-hint-text {
+    position: absolute;
+    right: 0;
+    bottom: -25px;
+    color: #565353;
+  }
 }
