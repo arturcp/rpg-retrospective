@@ -12,7 +12,7 @@ const header = () => (
     <Link to="/">
       <div className="logo">
         <img src={logo} alt="logo"/>
-        <Text>Partners Admission Retrospective</Text>
+        <Text>Role Playing Game - Retro</Text>
       </div>
     </Link>
   </header>
