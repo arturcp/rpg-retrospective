@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import PubSub from 'pubsub-js';
-import _ from 'lodash';
 
 import Actor from './Actor';
-import useKeyPress from '../../hooks/use-key-press/useKeyPress';
-import useWalk from '../../hooks/use-walk/useWalk';
-import { animate } from '../../libs/animationUtils';
-import { triggerKeydown } from '../../libs/keyboardUtils';
+import useKeyPress from '../../hooks/useKeyPress';
+import useWalk from '../../hooks/useWalk';
+import { animate } from '../../lib/animationUtils';
 
 const Player = (props) => {
   const {
@@ -26,7 +23,6 @@ const Player = (props) => {
     direction, step, walk, position,
   } = useWalk(maxSteps, initialData, movementsRestrictions);
 
-  const [subscriber, setsubscriber] = useState(null);
   const [isAnimating, setAnimationStatus] = useState(false);
 
   const move = (movementDirection) => {
@@ -39,25 +35,16 @@ const Player = (props) => {
     }
   };
 
-  if (allowInteraction) {
-    useKeyPress((e) => {
+  useKeyPress((e) => {
+    if (allowInteraction) {
       const movementDirection = e.key.replace('Arrow', '').toLowerCase();
       move(movementDirection);
       e.preventDefault();
-    });
-
-    const joystickHandler = (topic, payload) => {
-      if (payload.stick.direction) {
-        triggerKeydown({ key: `${payload.stick.direction.angle}Arrow` });
-      }
-    };
-
-    const joystickHandlerWithThrottle = _.throttle(joystickHandler, 30);
-    if (!subscriber) {
-      PubSub.unsubscribe(joystickHandlerWithThrottle);
-      setsubscriber(PubSub.subscribe('Joystick::Moved', joystickHandlerWithThrottle));
     }
-  } else if (!isAnimating) {
+  });
+
+
+  if (!isAnimating) {
     setAnimationStatus(true);
     animate(animation, walk);
   }

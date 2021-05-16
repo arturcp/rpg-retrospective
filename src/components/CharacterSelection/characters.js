@@ -10,6 +10,18 @@ import maleRogue from '../../images/avatars/male-rogue.jpg';
 import maleWarrior from '../../images/avatars/male-warrior.jpg';
 import maleWizard from '../../images/avatars/male-wizard.jpg';
 
+import femaleArcherSprite from '../../images/sprites/female-archer.png';
+import femaleAssassinSprite from '../../images/sprites/female-assassin.png';
+import femaleRogueSprite from '../../images/sprites/female-rogue.png';
+import femaleSorcererSprite from '../../images/sprites/female-sorcerer.png';
+import femaleWarriorSprite from '../../images/sprites/female-warrior.png';
+import femaleWizardSprite from '../../images/sprites/female-wizard.png';
+import maleArcherSprite from '../../images/sprites/male-archer.png';
+import maleAssassinSprite from '../../images/sprites/male-assassin.png';
+import maleRogueSprite from '../../images/sprites/male-rogue.png';
+import maleWarriorSprite from '../../images/sprites/male-warrior.png';
+import maleWizardSprite from '../../images/sprites/male-wizard.png';
+
 export const characters = {
   'female-archer': {
     image: femaleArcher,
@@ -17,7 +29,8 @@ export const characters = {
     description: [
       'They are usually associated with the wisdom of nature and tend to be wise, hardy, cunning, and perceptive in addition to being skilled woodsmen. Many are skilled in woodcraft, stealth, wilderness survival, beast-mastery, herbalism, tracking, and sometimes "nature magic" or have a resistance to magic.',
       'Archers spend a great deal of time hunting, fishing, and camping—whether on a short- or long-term basis, and are masters of ranged combat. They prefer to take down their enemies from afar and generally avoid close combat. Although some races, such as elves, certainly favor this class and are well suited to it, any race can excel at being an archer, given enough training.',
-    ]
+    ],
+    avatar: femaleArcherSprite,
   },
   'female-assassin': {
     image: femaleAssassin,
@@ -25,7 +38,8 @@ export const characters = {
     description: [
       'The assassin\'s specialty is the use of stealth to ambush and kill targets. Assassins often fill roles as killers-for-hire, spies, bounty hunters, and zealots. They typically work together in secretive specialist guilds.',
       'Trained in the use of poison, assassins are remorseless killers who work for nobles, guildmasters, Sovereigns, and anyone else who can afford them.'
-    ]
+    ],
+    avatar: femaleAssassinSprite,
   },
   'female-rogue': {
     image: femaleRogue,
@@ -34,6 +48,7 @@ export const characters = {
       'The rogue or thief is one of the standard playable character classes in most editions of the Dungeons & Dragons fantasy role-playing game. A rogue is a versatile character, capable of sneaky combat and nimble tricks.',
       'The rogue is stealthy and dexterous, and in early editions was the only official base class from the Player\'s Handbook capable of finding and disarming traps and picking locks. The rogue also has the ability to "sneak attack" ("backstab" in previous editions) enemies who are caught off-guard or taken by surprise, inflicting extra damage.'
     ],
+    avatar: femaleRogueSprite,
   },
   'female-sorcerer': {
     image: femaleSorcerer,
@@ -42,6 +57,7 @@ export const characters = {
       'Unlike warlocks and clerics, sorcerers don’t rely on another being for their powers. They also don’t need to keep their spells in tomes like wizards. Instead, sorcerers acquire their abilities through more esoteric means and discover new spells by gaining experience. Think of sorcerers as being a bit like the ‘chosen one’ archetype you find in a lot of fantasy literature - whether it’s through birth or a chance encounter, they’re special because they were made that way.',
       'Sorcerers carry a magical birthright conferred upon them by an exotic bloodline, some otherworldly influence, or exposure to unknown cosmic forces. One can’t study sorcery as one learns a language, any more than one can learn to live a legendary life. No one chooses sorcery; the power chooses the sorcerer.'
     ],
+    avatar: femaleSorcererSprite,
   },
   'female-warrior': {
     image: femaleWarrior,
@@ -50,6 +66,7 @@ export const characters = {
       'Also know as fighters, they share an unparalleled mastery with weapons and armor, and a thorough knowledge of the skills of combat. They are well acquainted with death, both meting it out and staring it defiantly in the face.',
       'Questing knights, conquering overlords, royal champions, elite foot soldiers, hardened mercenaries, and bandit kings—as fighters, they all share an unparalleled mastery with weapons and armor, and a thorough knowledge of the skills of combat. And they are well acquainted with death, both meting it out and staring it defiantly in the face.'
     ],
+    avatar: femaleWarriorSprite,
   },
   'female-wizard': {
     image: femaleWizard,
@@ -58,6 +75,7 @@ export const characters = {
       'Wizards are supreme magic-users, defined and united as a class by the spells they cast. Their magic conjures elementals from other planes of existence, glimpses the future, or turns slain foes into shambling zombies. Their mightiest spells change one substance into another or alter a creature’s form, open pathways to other planes of existence, or even kill with a single word.',
       'Wild and enigmatic, varied in form and function, the power of magic draws students who seek to master its mysteries. Some aspire to become like the gods, shaping reality itself. Though the casting of a typical spell requires merely the utterance of a few strange words, fleeting gestures, and sometimes a pinch or clump of exotic materials, these surface components barely hint at the expertise attained after years of apprenticeship and countless hours of study.',
     ],
+    avatar: femaleWizardSprite,
   },
   'male-archer': {
     image: maleArcher,
@@ -65,7 +83,8 @@ export const characters = {
     description: [
       'They are usually associated with the wisdom of nature and tend to be wise, hardy, cunning, and perceptive in addition to being skilled woodsmen. Many are skilled in woodcraft, stealth, wilderness survival, beast-mastery, herbalism, tracking, and sometimes "nature magic" or have a resistance to magic.',
       'Archers spend a great deal of time hunting, fishing, and camping—whether on a short- or long-term basis, and are masters of ranged combat. They prefer to take down their enemies from afar and generally avoid close combat. Although some races, such as elves, certainly favor this class and are well suited to it, any race can excel at being an archer, given enough training.',
-    ]
+    ],
+    avatar: maleArcherSprite,
   },
   'male-assassin': {
     image: maleAssassin,
@@ -73,7 +92,8 @@ export const characters = {
     description: [
       'The assassin\'s specialty is the use of stealth to ambush and kill targets. Assassins often fill roles as killers-for-hire, spies, bounty hunters, and zealots. They typically work together in secretive specialist guilds.',
       'Trained in the use of poison, assassins are remorseless killers who work for nobles, guildmasters, Sovereigns, and anyone else who can afford them.'
-    ]
+    ],
+    avatar: maleAssassinSprite,
   },
   'male-rogue': {
     image: maleRogue,
@@ -82,6 +102,7 @@ export const characters = {
       'The rogue or thief is one of the standard playable character classes in most editions of the Dungeons & Dragons fantasy role-playing game. A rogue is a versatile character, capable of sneaky combat and nimble tricks.',
       'The rogue is stealthy and dexterous, and in early editions was the only official base class from the Player\'s Handbook capable of finding and disarming traps and picking locks. The rogue also has the ability to "sneak attack" ("backstab" in previous editions) enemies who are caught off-guard or taken by surprise, inflicting extra damage.'
     ],
+    avatar: maleRogueSprite,
   },
   'male-warrior': {
     image: maleWarrior,
@@ -90,6 +111,7 @@ export const characters = {
       'Also know as fighters, they share an unparalleled mastery with weapons and armor, and a thorough knowledge of the skills of combat. They are well acquainted with death, both meting it out and staring it defiantly in the face.',
       'Questing knights, conquering overlords, royal champions, elite foot soldiers, hardened mercenaries, and bandit kings—as fighters, they all share an unparalleled mastery with weapons and armor, and a thorough knowledge of the skills of combat. And they are well acquainted with death, both meting it out and staring it defiantly in the face.'
     ],
+    avatar: maleWarriorSprite,
   },
   'male-wizard': {
     image: maleWizard,
@@ -98,5 +120,6 @@ export const characters = {
       'Wizards are supreme magic-users, defined and united as a class by the spells they cast. Their magic conjures elementals from other planes of existence, glimpses the future, or turns slain foes into shambling zombies. Their mightiest spells change one substance into another or alter a creature’s form, open pathways to other planes of existence, or even kill with a single word.',
       'Wild and enigmatic, varied in form and function, the power of magic draws students who seek to master its mysteries. Some aspire to become like the gods, shaping reality itself. Though the casting of a typical spell requires merely the utterance of a few strange words, fleeting gestures, and sometimes a pinch or clump of exotic materials, these surface components barely hint at the expertise attained after years of apprenticeship and countless hours of study.',
     ],
+    avatar: maleWizardSprite,
   },
 }
