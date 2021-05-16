@@ -5,7 +5,8 @@ const characterDescription = (props) => {
 
   return (
     <div className="character-description">
-      {character.description}
+      <h2 className="title">{character.title}</h2>
+      {character.description.map(paragraph => <div className="description-paragraph">{paragraph}</div>)}
     </div>
   )
 }
