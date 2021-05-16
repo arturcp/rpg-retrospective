@@ -31,7 +31,20 @@
   right: 145px;
   width: 600px;
   color: #fff;
-  top: 135px;
+  top: 110px;
   text-align: left;
   font-size: 17px;
+
+  .title {
+    color: #fff;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    display: table;
+    margin: 0 auto;
+    margin-bottom: 35px;
+  }
+
+  .description-paragraph {
+    margin-bottom: 15px;
+  }
 }
