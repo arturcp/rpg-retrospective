@@ -48,3 +48,11 @@
     margin-bottom: 15px;
   }
 }
+
+.player-area {
+  height: 100px;
+  position: relative;
+
+  background: url(../../images/scenarios/initial.png) no-repeat;
+  background-size: 600px 208px;
+}

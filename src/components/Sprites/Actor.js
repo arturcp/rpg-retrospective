@@ -59,9 +59,10 @@ Sprite.propTypes = {
   // an image can make during the animation. Each
   // movement in the same row is a step.
   //
-  // In a 3x3 matrix that represents a sprite, the
+  // In a 4x3 matrix that represents a sprite, the
   // steps are:
   //
+  // [0, 1, 2],
   // [0, 1, 2],
   // [0, 1, 2],
   // [0, 1, 2],
