@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Carousel from 'react-spring-3d-carousel';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
 import { config } from 'react-spring';
-import { characters } from './characters';
+import { characters } from '../../domain/characters';
 import NavigationBar from './NavigationBar';
 import CharacterDescription from './CharacterDescription';
 
 import './styles.scss';
 
-export default class CharacterSelection extends Component {
+class CharacterSelection extends Component {
   state = {
     goToSlide: 0,
     currentCharacter: 'female-archer',
@@ -17,7 +19,6 @@ export default class CharacterSelection extends Component {
   }
 
   onChangeInput = e => {
-    console.log(e);
     this.setState({
       [e.target.name]: parseInt(e.target.value, 10) || 0
     });
@@ -64,6 +65,7 @@ export default class CharacterSelection extends Component {
   render() {
     const slides = this.buildSlides();
     const { currentCharacter, goToSlide, offsetRadius, showNavigation, config } = this.state;
+    const { onSelectCharacterHandler, onClick } = this.props;
 
     return (
       <>
@@ -83,8 +85,30 @@ export default class CharacterSelection extends Component {
           <NavigationBar onMoveLeft={this.onMoveLeftHandler} onMoveRight={this.onMoveRightHandler} />
         </div>
 
-        <CharacterDescription character={characters[currentCharacter]}/>
+        <CharacterDescription
+          characterClass={currentCharacter}
+          character={characters[currentCharacter]}
+          onSelectCharacter={(character) => {
+            onSelectCharacterHandler(character);
+            onClick();
+          }}
+        />
       </>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    character: state.character
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSelectCharacterHandler: (character) => dispatch({ type: actionTypes.SAVE_CHARACTER, character: character })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterSelection);
+

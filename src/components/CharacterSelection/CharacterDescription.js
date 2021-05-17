@@ -1,9 +1,10 @@
 import React from 'react';
 import Player from '../Sprites/Player';
+import { Button } from 'antd';
 import CONSTANTS from '../../domain/constants';
 
 const characterDescription = (props) => {
-  const { character } = props;
+  const { character, onSelectCharacter, characterClass } = props;
 
   return (
     <div className="character-description">
@@ -29,6 +30,12 @@ const characterDescription = (props) => {
         />
         <div className="keyboard-hint-image"></div>
         <div className="keyboard-hint-text">Hint: use your keyboard</div>
+      </div>
+
+      <div className="character-selection-call-to-action">
+        <Button type="default" size="large" onClick={() => { onSelectCharacter(characterClass) }}>
+          Play with the {character.title.toLowerCase()}
+        </Button>
       </div>
     </div>
   )
