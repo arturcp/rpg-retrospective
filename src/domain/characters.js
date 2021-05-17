@@ -9,6 +9,7 @@ import maleAssassin from '../images/avatars/male-assassin.jpg';
 import maleRogue from '../images/avatars/male-rogue.jpg';
 import maleWarrior from '../images/avatars/male-warrior.jpg';
 import maleWizard from '../images/avatars/male-wizard.jpg';
+import masterAvatar from '../images/avatars/hellorah.png';
 
 import femaleArcherSprite from '../images/sprites/female-archer.png';
 import femaleAssassinSprite from '../images/sprites/female-assassin.png';
@@ -123,3 +124,14 @@ export const characters = {
     avatar: maleWizardSprite,
   },
 }
+
+export const npcs = [
+  {
+    id: 1,
+    type: 'NPC',
+    name: "Hellorah",
+    pronouns: '',
+    image_url: masterAvatar,
+    main_color: "#6A6A69",
+  }
+]
