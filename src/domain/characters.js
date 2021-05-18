@@ -132,6 +132,6 @@ export const npcs = [
     name: "Hellorah",
     pronouns: '',
     image_url: masterAvatar,
-    main_color: "#6A6A69",
+    main_color: "#4d302a",
   }
 ]

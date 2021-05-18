@@ -75,7 +75,7 @@ Dialog.propTypes = {
 
   // Function that will be executed when the entire
   // dialog ends.
-  dialogsFinished: PropTypes.fn,
+  dialogsFinished: PropTypes.func,
 
   // Array of strings containing the sentences of the
   // Dialog.

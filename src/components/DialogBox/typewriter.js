@@ -8,7 +8,7 @@ const typewriter = (dialogBox, text, onSpeechEnd) => {
   const sentences = text.split(regex);
   const pauses = text.match(regex);
   let pauseIndex = 0;
-  const typeDelay = 30; // time delay of print out
+  const typeDelay = 50; // time delay of print out
   let currentSentenceIndex = 0; // start printing array at this posision
   let currentSentenceLength = sentences[0].length; // the length of the text array
 
