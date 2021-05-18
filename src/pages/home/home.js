@@ -6,7 +6,7 @@ import Login from '../../components/Login/Login';
 import CharacterSelection from '../../components/CharacterSelection/CharacterSelection';
 import Dialogs from '../../containers/Dialogs/Dialogs';
 
-// import CharacterName from '../../components/CharacterName/CharacterName';
+import CharacterName from '../../components/CharacterName/CharacterName';
 
 const Home = () => {
   const [stage, setStage] = useState('initial')
@@ -49,6 +49,10 @@ const Home = () => {
             }
           />
         </CSSTransition>
+      )}
+
+      {stage === 'mentorDialogFinished' && (
+        <CharacterName onClick={() => { changeStage('characterNamed') }} />
       )}
     </div>
   );
