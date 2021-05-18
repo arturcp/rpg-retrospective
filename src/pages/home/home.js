@@ -10,27 +10,36 @@ import CharacterName from '../../components/CharacterName/CharacterName';
 
 const Home = () => {
   const [stage, setStage] = useState('initial')
+  const [stageIndex, setStageIndex] = useState(0)
 
-  const changeStage = (newStage) => {
-    setStage(newStage);
+  const stages = [
+    'initial',
+    'loggedIn',
+    'characterSelected',
+    'mentorDialogFinished',
+    'characterNamed'
+  ]
+
+  const nextStage = () => {
+    setStageIndex(stageIndex + 1);
+    setStage(stages[stageIndex]);
   }
 
-  console.log(stage);
   return (
     <div>
       <Header />
       {stage === 'initial' && (
-        <Login onClick={() => { changeStage('loggedIn') }} />
+        <Login onClick={nextStage} />
       )}
 
       {stage === 'loggedIn' && (
-        <CharacterSelection onClick={() => { changeStage('characterSelected') }} />
+        <CharacterSelection onClick={nextStage} />
       )}
 
       {stage === 'characterSelected' && (
         <CSSTransition in appear timeout={600} classNames="fade">
           <Dialogs
-            dialogsFinished={() => { changeStage('mentorDialogFinished') }}
+            dialogsFinished={nextStage}
             dialogs={
               [
                 {
@@ -52,7 +61,7 @@ const Home = () => {
       )}
 
       {stage === 'mentorDialogFinished' && (
-        <CharacterName onClick={() => { changeStage('characterNamed') }} />
+        <CharacterName onClick={nextStage} />
       )}
     </div>
   );
