@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
 
+import { STAGES } from './homeConstants';
 import Header from '../../components/Header/Header';
 import Login from '../../components/Login/Login';
 import CharacterSelection from '../../components/CharacterSelection/CharacterSelection';
-import Dialogs from '../../containers/Dialogs/Dialogs';
-
 import CharacterName from '../../components/CharacterName/CharacterName';
 
+import Prologue from '../../scenes/Prologue';
+import TravelerHistory from '../../scenes/TravelerHistory';
+import MeetTheMentor from '../../scenes/MeetTheMentor';
+import MentorIntroduction from '../../scenes/MentorIntroduction';
+
 const Home = () => {
-  const [stage, setStage] = useState('initial')
+  const [stage, setStage] = useState(STAGES.ASK_FOR_USER_NAME)
   const [stageIndex, setStageIndex] = useState(0)
 
   const stages = [
-    'initial',
-    'loggedIn',
-    'characterSelected',
-    'mentorDialogFinished',
-    'characterNamed'
+    STAGES.ASK_FOR_USER_NAME,
+    STAGES.CHARACTER_SELECTION,
+    STAGES.PROLOGUE,
+    STAGES.TRAVELER_STORYLINE,
+    STAGES.MEET_THE_MENTOR,
+    STAGES.MENTOR_INTRODUCTION_SPEECH,
+    STAGES.ASK_FOR_CHARACTER_NAME,
   ]
 
   const nextStage = () => {
@@ -28,39 +33,31 @@ const Home = () => {
   return (
     <div>
       <Header />
-      {stage === 'initial' && (
+      {stage === STAGES.ASK_FOR_USER_NAME && (
         <Login onClick={nextStage} />
       )}
 
-      {stage === 'loggedIn' && (
+      {stage === STAGES.CHARACTER_SELECTION && (
         <CharacterSelection onClick={nextStage} />
       )}
 
-      {stage === 'characterSelected' && (
-        <CSSTransition in appear timeout={600} classNames="fade">
-          <Dialogs
-            dialogsFinished={nextStage}
-            dialogs={
-              [
-                {
-                  character_type:  'NPC',
-                  npc_id: 1,
-                  paragraphs: [
-                  'Halt, stranger. <pause for=1200> A mortal danger lurks around and you have found us in the throes of a battle for our very existence.',
-                  'But I can feel your prowess from afar, you have come from a distant land in the right time. There are others of your kind beyond that walloping gate.',
-                  'Cross it at your own risk. Uncanny power struts towards us and the sands of time seep through the hourglass.',
-                  'Go and meet the others. All the hopes of human kind depend on this meeting.',
-                  'However, I believe some introductions are necessary first. I am called by many names, but you can know me as Hellorah, the keeper of the Lethorians.',
-                  'How may I call you?',
-                  ]
-                }
-              ]
-            }
-          />
-        </CSSTransition>
+      {stage === STAGES.PROLOGUE && (
+        <Prologue onAnimationEnd={nextStage}/>
       )}
 
-      {stage === 'mentorDialogFinished' && (
+      {stage === STAGES.TRAVELER_STORYLINE && (
+        <TravelerHistory />
+      )}
+
+      {stage === STAGES.MEET_THE_MENTOR && (
+        <MeetTheMentor onSceneEnd={nextStage} />
+      )}
+
+      {stage === STAGES.MENTOR_INTRODUCTION_SPEECH && (
+        <MentorIntroduction onDialogFinish={nextStage} />
+      )}
+
+      {stage === STAGES.ASK_FOR_CHARACTER_NAME && (
         <CharacterName onClick={nextStage} />
       )}
     </div>

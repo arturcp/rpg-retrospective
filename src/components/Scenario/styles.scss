@@ -1,0 +1,35 @@
+.scenario {
+  position: relative;
+  width: 500px;
+  height: 270px;
+  margin: 0 auto;
+  border: 1px solid #000;
+  margin-top: 20px;
+  // overflow: hidden;
+
+  @media only screen and (max-width: 576px) {
+    width: 98%;
+    background-size: 100% 100%;
+  }
+
+  &.gateway {
+    background-image: url(../../images/scenarios/gateway.jpg);
+    background-size: 500px 270px;
+    background-repeat: no-repeat;
+  }
+
+  &.map {
+    background-image: url(https://images.squarespace-cdn.com/content/v1/589db2db8419c25ff481f95d/1555265148747-AAQ93BLJ3JQXR06CO1OP/ke17ZwdGBToddI8pDm48kFWxnDtCdRm2WA9rXcwtIYR7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UcTSrQkGwCGRqSxozz07hWZrYGYYH8sg4qn8Lpf9k1pYMHPsat2_S1jaQY3SwdyaXg/PaperArtboard+1castles.jpg?format=2500w);
+    width: 800px;
+    height: 450px;
+
+    background-position: top left;
+    animation: movemap 50s;
+    border-radius: 5px;
+  }
+
+  @keyframes movemap {
+    50% { background-position: center; }
+  }
+
+}
