@@ -33,8 +33,9 @@ const meetTheMentor = (props) => {
 
       <CSSTransition in appear timeout={600} classNames="fade">
         <DialogBox
+          mode="flat"
           text={[
-            'teste'
+            '[Go talk to the misterious creature ahead]'
           ]}
           speed={10}
           eraseSpeed={0}

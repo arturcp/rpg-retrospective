@@ -51,7 +51,7 @@ const Home = (props) => {
       )}
 
       {stage === STAGES.TRAVELER_STORYLINE && (
-        <TravelerHistory onSpeechEnd={nextStage} />
+        <TravelerHistory character={character} onSpeechEnd={nextStage} />
       )}
 
       {stage === STAGES.MEET_THE_MENTOR && (

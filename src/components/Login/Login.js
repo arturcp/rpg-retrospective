@@ -24,8 +24,10 @@ const Login = (props) => {
         enterButton="Login"
         size="large"
         onSearch={name => {
-          props.onUserNameSaved(name);
-          props.onClick();
+          if (name.trim().length > 0) {
+            props.onUserNameSaved(name);
+            props.onClick();
+          }
         }}
       />
     </div>

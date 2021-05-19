@@ -27,7 +27,7 @@ const characterDescription = (props) => {
           movementsRestrictions={{
             directions: ['left', 'right', 'up', 'down'],
             minY: 33,
-            maxY: 70,
+            maxY: 68,
             maxX: 374,
             minX: 0,
           }}
