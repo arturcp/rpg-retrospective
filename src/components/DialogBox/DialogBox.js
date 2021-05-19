@@ -13,7 +13,7 @@ class DialogBox extends Component {
     this.dialogBoxRef = React.createRef();
 
     this.state = {
-      mode: 'typing',
+      mode: props.mode || 'typing',
       currentIndex: 0,
       currentText: text[0],
     };
