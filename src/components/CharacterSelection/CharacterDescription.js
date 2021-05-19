@@ -4,12 +4,16 @@ import { Button } from 'antd';
 import CONSTANTS from '../../domain/constants';
 
 const characterDescription = (props) => {
-  const { character, onSelectCharacter, characterClass } = props;
+  const { character, onSelectCharacter, characterType } = props;
 
   return (
     <div className="character-description">
       <h2 className="title">{character.title}</h2>
-      {character.description.map((paragraph, index) => <div key={`description-${index}`} className="description-paragraph">{paragraph}</div>)}
+
+      <div className="paragraphs">
+        {character.description.map((paragraph, index) => <div key={`description-${index}`} className="description-paragraph">{paragraph}</div>)}
+      </div>
+
       <div className="player-area">
         <Player
           image={character.avatar}
@@ -33,7 +37,7 @@ const characterDescription = (props) => {
       </div>
 
       <div className="character-selection-call-to-action">
-        <Button type="default" size="large" onClick={() => { onSelectCharacter(characterClass) }}>
+        <Button type="default" size="large" onClick={() => { onSelectCharacter(characterType) }}>
           Play with the {character.title.toLowerCase()}
         </Button>
       </div>

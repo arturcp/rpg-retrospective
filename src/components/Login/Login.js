@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Input } from 'antd';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
@@ -8,20 +8,30 @@ import './styles.scss';
 
 const { Search } = Input;
 
-const Login = (props) => (
-  <div className="login-container scale-in-center">
-    <h2>What is your name?</h2>
-    <Search
-      placeholder="Enter your name"
-      enterButton="Login"
-      size="large"
-      onSearch={name => {
-        props.onUserNameSaved(name);
-        props.onClick();
-      }}
-    />
-  </div>
-)
+const Login = (props) => {
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  return (
+    <div className="login-container scale-in-center">
+      <h2>What is your name?</h2>
+      <Search
+        ref={inputRef}
+        placeholder="Enter your name"
+        enterButton="Login"
+        size="large"
+        onSearch={name => {
+          props.onUserNameSaved(name);
+          props.onClick();
+        }}
+      />
+    </div>
+  );
+}
 
 const mapStateToProps = state => {
   return {

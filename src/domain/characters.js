@@ -32,6 +32,7 @@ export const characters = {
       'Archers spend a great deal of time hunting, fishing, and camping—whether on a short- or long-term basis, and are masters of ranged combat. They prefer to take down their enemies from afar and generally avoid close combat. Although some races, such as elves, certainly favor this class and are well suited to it, any race can excel at being an archer, given enough training.',
     ],
     avatar: femaleArcherSprite,
+    gender: 'female',
   },
   'female-assassin': {
     image: femaleAssassin,
@@ -41,6 +42,7 @@ export const characters = {
       'Trained in the use of poison, assassins are remorseless killers who work for nobles, guildmasters, Sovereigns, and anyone else who can afford them.'
     ],
     avatar: femaleAssassinSprite,
+    gender: 'female',
   },
   'female-rogue': {
     image: femaleRogue,
@@ -50,6 +52,7 @@ export const characters = {
       'The rogue is stealthy and dexterous, and in early editions was the only official base class from the Player\'s Handbook capable of finding and disarming traps and picking locks. The rogue also has the ability to "sneak attack" ("backstab" in previous editions) enemies who are caught off-guard or taken by surprise, inflicting extra damage.'
     ],
     avatar: femaleRogueSprite,
+    gender: 'female',
   },
   'female-sorcerer': {
     image: femaleSorcerer,
@@ -59,6 +62,7 @@ export const characters = {
       'Sorcerers carry a magical birthright conferred upon them by an exotic bloodline, some otherworldly influence, or exposure to unknown cosmic forces. One can’t study sorcery as one learns a language, any more than one can learn to live a legendary life. No one chooses sorcery; the power chooses the sorcerer.'
     ],
     avatar: femaleSorcererSprite,
+    gender: 'female',
   },
   'female-warrior': {
     image: femaleWarrior,
@@ -68,6 +72,7 @@ export const characters = {
       'Questing knights, conquering overlords, royal champions, elite foot soldiers, hardened mercenaries, and bandit kings—as fighters, they all share an unparalleled mastery with weapons and armor, and a thorough knowledge of the skills of combat. And they are well acquainted with death, both meting it out and staring it defiantly in the face.'
     ],
     avatar: femaleWarriorSprite,
+    gender: 'female',
   },
   'female-wizard': {
     image: femaleWizard,
@@ -77,6 +82,7 @@ export const characters = {
       'Wild and enigmatic, varied in form and function, the power of magic draws students who seek to master its mysteries. Some aspire to become like the gods, shaping reality itself. Though the casting of a typical spell requires merely the utterance of a few strange words, fleeting gestures, and sometimes a pinch or clump of exotic materials, these surface components barely hint at the expertise attained after years of apprenticeship and countless hours of study.',
     ],
     avatar: femaleWizardSprite,
+    gender: 'female',
   },
   'male-archer': {
     image: maleArcher,
@@ -86,6 +92,7 @@ export const characters = {
       'Archers spend a great deal of time hunting, fishing, and camping—whether on a short- or long-term basis, and are masters of ranged combat. They prefer to take down their enemies from afar and generally avoid close combat. Although some races, such as elves, certainly favor this class and are well suited to it, any race can excel at being an archer, given enough training.',
     ],
     avatar: maleArcherSprite,
+    gender: 'male',
   },
   'male-assassin': {
     image: maleAssassin,
@@ -95,6 +102,7 @@ export const characters = {
       'Trained in the use of poison, assassins are remorseless killers who work for nobles, guildmasters, Sovereigns, and anyone else who can afford them.'
     ],
     avatar: maleAssassinSprite,
+    gender: 'male',
   },
   'male-rogue': {
     image: maleRogue,
@@ -104,6 +112,7 @@ export const characters = {
       'The rogue is stealthy and dexterous, and in early editions was the only official base class from the Player\'s Handbook capable of finding and disarming traps and picking locks. The rogue also has the ability to "sneak attack" ("backstab" in previous editions) enemies who are caught off-guard or taken by surprise, inflicting extra damage.'
     ],
     avatar: maleRogueSprite,
+    gender: 'male',
   },
   'male-warrior': {
     image: maleWarrior,
@@ -113,6 +122,7 @@ export const characters = {
       'Questing knights, conquering overlords, royal champions, elite foot soldiers, hardened mercenaries, and bandit kings—as fighters, they all share an unparalleled mastery with weapons and armor, and a thorough knowledge of the skills of combat. And they are well acquainted with death, both meting it out and staring it defiantly in the face.'
     ],
     avatar: maleWarriorSprite,
+    gender: 'male',
   },
   'male-wizard': {
     image: maleWizard,
@@ -122,6 +132,7 @@ export const characters = {
       'Wild and enigmatic, varied in form and function, the power of magic draws students who seek to master its mysteries. Some aspire to become like the gods, shaping reality itself. Though the casting of a typical spell requires merely the utterance of a few strange words, fleeting gestures, and sometimes a pinch or clump of exotic materials, these surface components barely hint at the expertise attained after years of apprenticeship and countless hours of study.',
     ],
     avatar: maleWizardSprite,
+    gender: 'male',
   },
 }
 
