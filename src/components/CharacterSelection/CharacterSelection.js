@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Carousel from 'react-spring-3d-carousel';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions';
 import { config } from 'react-spring';
 import { characters } from '../../domain/characters';
+import * as actionTypes from '../../store/actions';
 import NavigationBar from './NavigationBar';
 import CharacterDescription from './CharacterDescription';
 
@@ -12,7 +12,7 @@ import './styles.scss';
 class CharacterSelection extends Component {
   state = {
     goToSlide: 0,
-    currentCharacter: 'female-archer',
+    currentCharacterType: 'female-archer',
     offsetRadius: 2,
     showNavigation: false,
     config: config.gentle
@@ -30,10 +30,10 @@ class CharacterSelection extends Component {
       const character = characters[key];
       slides.push(
         {
-          key: character.class,
-          content: <img src={character.image} alt={character.class} />,
+          key: character.type,
+          content: <img src={character.image} alt={character.type} />,
           onClick: () => {
-            this.setState({ goToSlide: index, currentCharacter: characters[key] })
+            this.setState({ goToSlide: index, currentCharacterType: key })
           }
         }
       );
@@ -43,28 +43,28 @@ class CharacterSelection extends Component {
   }
 
   onMoveLeftHandler = () => {
-    const list = Object.keys(characters);
+    const characterTypes = Object.keys(characters);
     let nextIndex = this.state.goToSlide - 1;
     if (nextIndex < 0) {
-      nextIndex = list.length - 1;
+      nextIndex = characterTypes.length - 1;
     }
-    const character = list[nextIndex];
-    this.setState({ goToSlide: nextIndex, currentCharacter: character })
+    const character = characterTypes[nextIndex];
+    this.setState({ goToSlide: nextIndex, currentCharacterType: character })
   }
 
   onMoveRightHandler = () => {
-    const list = Object.keys(characters);
+    const characterTypes = Object.keys(characters);
     let nextIndex = this.state.goToSlide + 1;
-    if (nextIndex > list.length - 1) {
+    if (nextIndex > characterTypes.length - 1) {
       nextIndex = 0;
     }
-    const character = list[nextIndex];
-    this.setState({ goToSlide: nextIndex, currentCharacter: character })
+    const characterType = characterTypes[nextIndex];
+    this.setState({ goToSlide: nextIndex, currentCharacterType: characterType })
   }
 
   render() {
     const slides = this.buildSlides();
-    const { currentCharacter, goToSlide, offsetRadius, showNavigation, config } = this.state;
+    const { currentCharacterType, goToSlide, offsetRadius, showNavigation, config } = this.state;
     const { onSelectCharacterHandler, onClick } = this.props;
 
     return (
@@ -86,10 +86,10 @@ class CharacterSelection extends Component {
         </div>
 
         <CharacterDescription
-          characterClass={currentCharacter}
-          character={characters[currentCharacter]}
-          onSelectCharacter={(character) => {
-            onSelectCharacterHandler(character);
+          characterType={currentCharacterType}
+          character={characters[currentCharacterType]}
+          onSelectCharacter={(characterType) => {
+            onSelectCharacterHandler(characterType);
             onClick();
           }}
         />
@@ -100,13 +100,16 @@ class CharacterSelection extends Component {
 
 const mapStateToProps = state => {
   return {
-    character: state.character
+    data: state.data
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSelectCharacterHandler: (character) => dispatch({ type: actionTypes.SAVE_CHARACTER, character: character })
+    onSelectCharacterHandler: (characterType) => {
+      const character = characters[characterType];
+      dispatch({ type: actionTypes.SAVE_CHARACTER, characterType, character })
+    }
   }
 }
 

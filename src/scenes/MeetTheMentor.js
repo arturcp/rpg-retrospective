@@ -1,15 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import DialogBox from '../components/DialogBox/DialogBox';
 
 import Scenario from '../components/Scenario/Scenario';
 import Player from '../components/Sprites/Player';
-import { characters } from '../domain/characters';
 import CONSTANTS from '../domain/constants';
 
+import './meet-the-mentor.scss';
+
 const meetTheMentor = (props) => {
-  const character = characters[props.characterClass];
+  const { character } = props;
 
   return (
     <>
@@ -46,14 +46,4 @@ const meetTheMentor = (props) => {
   )
 };
 
-const mapStateToProps = state => {
-  return {
-    characterClass: state.character.class
-  };
-}
-
-const mapDispatchToProps = dispatch => {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(meetTheMentor);
+export default meetTheMentor;

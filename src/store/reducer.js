@@ -2,9 +2,10 @@ import * as actionTypes from './actions';
 
 const initialState = {
   userName: '',
-  character: {
+  data: {
     name: '',
-    class: '',
+    type: '',
+    character: {},
   },
 }
 
@@ -13,25 +14,26 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SAVE_USER_NAME:
       return {
         ...state,
-        character: {
-          ...state.character
+        data: {
+          ...state.data
         },
         userName: action.name
       };
     case actionTypes.SAVE_CHARACTER:
       return {
         ...state,
-        character: {
-          ...state.character,
-          class: action.character
+        data: {
+          ...state.data,
+          type: action.type,
+          character: action.character
         },
       };
     case actionTypes.SAVE_CHARACTER_NAME:
       return {
         ...state,
-        character: {
-          ...state.character,
-          name: state.characterName
+        data: {
+          ...state.data,
+          name: action.name
         }
       };
     default:

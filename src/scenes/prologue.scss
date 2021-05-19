@@ -70,21 +70,29 @@
     opacity:0.3;
   }
 
+  button,
+  button:hover,
+  button:focus,
+  button:active {
+    background-color: #f1e76d;
+    border-color: #000;
+  }
+
   @-webkit-keyframes vignette-anim {
-    0%   , 100%{ opacity: 1; }
-    50% { opacity: 0.7; }
+    0%, 100%{ opacity: 1; }
+    30% { opacity: 0.7; }
   }
   @-moz-keyframes vignette-anim {
-    0%   , 100%{ opacity: 1; }
-    50% { opacity: 0.7; }
+    0%, 100%{ opacity: 1; }
+    30% { opacity: 0.7; }
   }
   @-o-keyframes vignette-anim {
-    0%   , 100%{ opacity: 1; }
-    50% { opacity: 0.7; }
+    0%, 100%{ opacity: 1; }
+    30% { opacity: 0.7; }
   }
   @keyframes vignette-anim {
-    0%   , 100%{ opacity: 1; }
-    50% { opacity: 0.7; }
+    0%, 100%{ opacity: 1; }
+    30% { opacity: 0.7; }
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { STAGES } from './homeConstants';
 import Header from '../../components/Header/Header';
@@ -11,7 +12,7 @@ import TravelerHistory from '../../scenes/TravelerHistory';
 import MeetTheMentor from '../../scenes/MeetTheMentor';
 import MentorIntroduction from '../../scenes/MentorIntroduction';
 
-const Home = () => {
+const Home = (props) => {
   const [stage, setStage] = useState(STAGES.ASK_FOR_USER_NAME)
   const [stageIndex, setStageIndex] = useState(0)
 
@@ -31,6 +32,8 @@ const Home = () => {
     setStage(stages[nextIndex]);
   }
 
+  const { character } = props.data;
+
   return (
     <div>
       <Header />
@@ -44,15 +47,15 @@ const Home = () => {
       )}
 
       {stage === STAGES.PROLOGUE && (
-        <Prologue onAnimationEnd={nextStage}/>
+        <Prologue character={character} onClick={nextStage}/>
       )}
 
       {stage === STAGES.TRAVELER_STORYLINE && (
-        <TravelerHistory />
+        <TravelerHistory onSpeechEnd={nextStage} />
       )}
 
       {stage === STAGES.MEET_THE_MENTOR && (
-        <MeetTheMentor onSceneEnd={nextStage} />
+        <MeetTheMentor character={character} onSceneEnd={nextStage} />
       )}
 
       {stage === STAGES.MENTOR_INTRODUCTION_SPEECH && (
@@ -60,9 +63,16 @@ const Home = () => {
       )}
 
       {stage === STAGES.ASK_FOR_CHARACTER_NAME && (
-        <CharacterName onClick={nextStage} />
+        <CharacterName character={character} onClick={nextStage} />
       )}
     </div>
   );
 }
-export default Home;
+
+const mapStateToProps = state => {
+  return {
+    data: state.data,
+  };
+}
+
+export default connect(mapStateToProps, null)(Home);
