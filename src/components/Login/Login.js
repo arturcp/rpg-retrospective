@@ -9,7 +9,6 @@ import './styles.scss';
 const { Search } = Input;
 
 const Login = (props) => {
-
   const inputRef = useRef(null);
 
   useEffect(() => {
