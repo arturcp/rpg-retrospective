@@ -16,7 +16,7 @@ const Login = (props) => (
       enterButton="Login"
       size="large"
       onSearch={name => {
-        props.onUserNameSaved(name)
+        props.onUserNameSaved(name);
         props.onClick();
       }}
     />

@@ -26,13 +26,15 @@ const Home = () => {
   ]
 
   const nextStage = () => {
-    setStageIndex(stageIndex + 1);
-    setStage(stages[stageIndex]);
+    const nextIndex = stageIndex + 1;
+    setStageIndex(nextIndex);
+    setStage(stages[nextIndex]);
   }
 
   return (
     <div>
       <Header />
+
       {stage === STAGES.ASK_FOR_USER_NAME && (
         <Login onClick={nextStage} />
       )}
@@ -63,5 +65,4 @@ const Home = () => {
     </div>
   );
 }
-
 export default Home;

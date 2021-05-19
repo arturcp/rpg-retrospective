@@ -25,7 +25,7 @@ class Prologue extends Component {
       <main className="prologue-content" id="main-content">
         <div className="titleCont">
           <h1 className="main-title" id="main-title">
-            <span>Whether to serve a corrupt and failing empire,</span><br />
+            <span>Wheather to serve a corrupt and failing empire,</span><br />
             <span style={{ paddingLeft: '10px' }}>or to challenge the fates for the world's destiny,</span><br />
             <span style={{ paddingLeft: '-20px' }}>What was a hero to do?"</span>
           </h1>
@@ -38,25 +38,3 @@ class Prologue extends Component {
 }
 
 export default Prologue;
-
-
-// const prologue = (props) => {
-//   return (
-//     <main className="prologue-content" id="main-content">
-//       <div className="titleCont">
-//         <h1 className="main-title" id="main-title">
-//           <span>Whether to serve a corrupt and failing empire,</span><br />
-//           <span style={{ paddingLeft: '100px' }}>or to challenge the fates,</span><br />
-//           <span style={{ paddingRight: '110px' }}>and fight for the world's destiny,</span><br />
-//           <span style={{ paddingLeft: '-20px' }}>What should you do?"</span>
-//         </h1>
-//       </div>
-//       <canvas id="noise" className="noise"></canvas>
-//       <div className="vignette"></div>
-//     </main>
-//   )
-// }
-
-// export default prologue;
-
-
