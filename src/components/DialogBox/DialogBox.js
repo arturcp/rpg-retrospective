@@ -72,7 +72,7 @@ class DialogBox extends Component {
   };
 
   onKeyPress = (e) => {
-    if (e.keyCode === 13 || (e.keyCode >= 37 && e.keyCode <= 40)) {
+    if (e.keyCode === 13) {
       this.changeBoxState();
     }
   };
@@ -115,9 +115,13 @@ class DialogBox extends Component {
 
         <div className="dialog-box">
           {mode === 'typing' ? (
-            <div ref={this.dialogBoxRef} />
+            <div ref={this.dialogBoxRef} className="dialog-text-limit" />
           ) : (
-            <div ref={this.dialogBoxRef} mode="flat">
+            <div
+              ref={this.dialogBoxRef}
+              mode="flat"
+              className="dialog-text-limit"
+            >
               {parsedText}
             </div>
           )}

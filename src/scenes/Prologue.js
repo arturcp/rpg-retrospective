@@ -27,7 +27,7 @@ class Prologue extends Component {
           <h1 className="main-title" id="main-title">
             <span>Whether to serve a corrupt and failing empire,</span><br />
             <span style={{ paddingLeft: '10px' }}>or to challenge the fate against {character.gender === 'male' ? 'his' : 'her'} own destiny...</span><br />
-            <span style={{ paddingLeft: '-20px' }}>What was the {character.title.toLowerCase()} to do?"</span>
+            <span style={{ paddingLeft: '-20px' }}>What was the {character.title.toLowerCase()} to do?</span>
           </h1>
         </div>
         <canvas id="noise" className="noise"></canvas>

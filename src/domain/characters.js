@@ -23,6 +23,8 @@ import maleRogueSprite from '../images/sprites/male-rogue.png';
 import maleWarriorSprite from '../images/sprites/male-warrior.png';
 import maleWizardSprite from '../images/sprites/male-wizard.png';
 
+import hellorahSprite from '../images/sprites/hellorah.png';
+
 export const characters = {
   'female-archer': {
     image: femaleArcher,
@@ -144,5 +146,6 @@ export const npcs = [
     pronouns: '',
     image_url: masterAvatar,
     main_color: "#4d302a",
+    avatar: hellorahSprite,
   }
 ]

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Dialog from '../../components/Dialog/Dialog';
-import { npcs, characters } from '../../domain/characters';
+import { npcs } from '../../domain/characters';
 import { connect } from 'react-redux';
 import './styles.scss';
 
@@ -35,7 +35,6 @@ class Dialogs extends Component {
     const { background, character, dialogs } = this.props;
     const { currentDialogIndex } = this.state;
     const { backgroundImage, backgroundColor } = background || {};
-    const currentCharacter = characters[character.class];
 
     if (this.readyToShow(npcs, dialogs, currentDialogIndex)) {
       return (
@@ -53,7 +52,7 @@ class Dialogs extends Component {
             classNames="fade"
           >
             <Dialog
-              character={currentCharacter}
+              character={character}
               npcs={npcs}
               dialog={dialogs[currentDialogIndex]}
               speechFinished={this.onSpeechFinished}
@@ -84,7 +83,7 @@ Dialog.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    character: state.character
+    character: state.data.character
   };
 }
 
