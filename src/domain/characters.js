@@ -142,10 +142,10 @@ export const npcs = [
   {
     id: 1,
     type: 'NPC',
-    name: "Hellorah",
+    name: 'Hellorah',
     pronouns: '',
     image_url: masterAvatar,
-    main_color: "#4d302a",
+    main_color: '#4d302a',
     avatar: hellorahSprite,
-  }
+  },
 ]

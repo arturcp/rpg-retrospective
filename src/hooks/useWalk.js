@@ -14,9 +14,10 @@ const useWalk = (maxSteps, initialData, movementsRestrictions) => {
     direction: initialDirection,
   } = data;
 
-  const [position, setPosition] = useState(initialPosition);
   const [direction, setDirection] = useState(initialDirection);
   const [step, setStep] = useState(initialStep);
+  const [position, setPosition] = useState(initialPosition);
+
   const directions = {
     down: CONSTANTS.DIRECTIONS.DOWN,
     left: CONSTANTS.DIRECTIONS.LEFT,
@@ -64,6 +65,7 @@ const useWalk = (maxSteps, initialData, movementsRestrictions) => {
         x: prev.x + modifier[newDirection].x,
         y: prev.y + modifier[newDirection].y,
       }));
+
       return true;
     }
 
@@ -78,6 +80,7 @@ const useWalk = (maxSteps, initialData, movementsRestrictions) => {
         }
         return directions[newDirection];
       });
+
       if (isMovementAllowed(newDirection)) {
         setStep((prev) => (prev < maxSteps - 1 ? prev + 1 : 0));
       } else {
