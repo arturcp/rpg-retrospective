@@ -10,6 +10,8 @@ import Prologue from '../../scenes/Prologue';
 import TravelerHistory from '../../scenes/TravelerHistory';
 import MeetTheMentor from '../../scenes/MeetTheMentor';
 import MentorIntroduction from '../../scenes/MentorIntroduction';
+import MentorFarewell from '../../scenes/MentorFarewell';
+import OpenTheDoor from '../../scenes/OpenTheDoor';
 
 const Home = (props) => {
   const [stage, setStage] = useState(STAGES.ASK_FOR_USER_NAME)
@@ -22,7 +24,8 @@ const Home = (props) => {
     STAGES.TRAVELER_STORYLINE,
     STAGES.MEET_THE_MENTOR,
     STAGES.MENTOR_INTRODUCTION,
-    STAGES.ASK_FOR_CHARACTER_NAME,
+    STAGES.MENTOR_FAREWELL,
+    STAGES.OPEN_THE_DOOR,
   ]
 
   const nextStage = () => {
@@ -59,6 +62,14 @@ const Home = (props) => {
 
       {stage === STAGES.MENTOR_INTRODUCTION && (
         <MentorIntroduction character={character} onSceneEnd={nextStage} />
+      )}
+
+      {stage === STAGES.MENTOR_FAREWELL && (
+        <MentorFarewell character={character} onSceneEnd={nextStage} />
+      )}
+
+      {stage === STAGES.OPEN_THE_DOOR && (
+        <OpenTheDoor character={character} onSceneEnd={nextStage} />
       )}
     </div>
   );
