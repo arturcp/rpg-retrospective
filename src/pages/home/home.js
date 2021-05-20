@@ -5,7 +5,6 @@ import { STAGES } from './homeConstants';
 import Header from '../../components/Header/Header';
 import Login from '../../components/Login/Login';
 import CharacterSelection from '../../components/CharacterSelection/CharacterSelection';
-import CharacterName from '../../components/CharacterName/CharacterName';
 
 import Prologue from '../../scenes/Prologue';
 import TravelerHistory from '../../scenes/TravelerHistory';
@@ -22,7 +21,7 @@ const Home = (props) => {
     STAGES.PROLOGUE,
     STAGES.TRAVELER_STORYLINE,
     STAGES.MEET_THE_MENTOR,
-    STAGES.MENTOR_INTRODUCTION_SPEECH,
+    STAGES.MENTOR_INTRODUCTION,
     STAGES.ASK_FOR_CHARACTER_NAME,
   ]
 
@@ -58,12 +57,8 @@ const Home = (props) => {
         <MeetTheMentor character={character} onSceneEnd={nextStage} />
       )}
 
-      {stage === STAGES.MENTOR_INTRODUCTION_SPEECH && (
-        <MentorIntroduction onDialogFinish={nextStage} />
-      )}
-
-      {stage === STAGES.ASK_FOR_CHARACTER_NAME && (
-        <CharacterName character={character} onClick={nextStage} />
+      {stage === STAGES.MENTOR_INTRODUCTION && (
+        <MentorIntroduction character={character} onSceneEnd={nextStage} />
       )}
     </div>
   );

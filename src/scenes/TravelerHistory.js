@@ -13,6 +13,7 @@ const travelerHistory = (props) => {
       <CSSTransition in appear timeout={600} classNames="fade">
         <>
           <Scenario scene="map" />
+
           <DialogBox
             text={[
               `<pause for=2000>Through the mists of Demon Wood, and the stiffling sands of Moffrock, ${pronoun} travelled.`,

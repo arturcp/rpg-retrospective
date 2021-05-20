@@ -43,7 +43,6 @@ const Player = (props) => {
     }
   });
 
-
   if (!isAnimating) {
     setAnimationStatus(true);
     animate(animation, walk);

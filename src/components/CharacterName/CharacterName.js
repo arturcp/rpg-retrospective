@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Input } from 'antd';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
@@ -9,12 +9,19 @@ import './styles.scss';
 const { Search } = Input;
 
 const CharacterName = (props) => {
+  const inputRef = useRef(null);
+
   const { character } = props;
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     <div className="character-name-container scale-in-center">
       <h2>Give a name to your character</h2>
       <Search
+        ref={inputRef}
         placeholder={`Enter your ${character.title.toLowerCase()}'s name`}
         enterButton="Save"
         size="large"

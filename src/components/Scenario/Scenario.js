@@ -5,6 +5,7 @@ import './styles.scss';
 
 const scenario = (props) => {
   const { scene } = props;
+
   return (
     <section className={`scenario ${scene}`}>
       {props.children}
