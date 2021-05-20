@@ -26,8 +26,10 @@ const CharacterName = (props) => {
         enterButton="Save"
         size="large"
         onSearch={name => {
-          props.onCharacterNameSaved(name)
-          props.onClick();
+          if (name.trim().length > 0) {
+            props.onCharacterNameSaved(name)
+            props.onClick();
+          }
         }}
       />
     </div>

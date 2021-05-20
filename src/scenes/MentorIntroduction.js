@@ -9,14 +9,13 @@ import CharacterName from '../components/CharacterName/CharacterName';
 import CONSTANTS from '../domain/constants';
 import { npcs } from '../domain/characters';
 
-
 export default class MentorIntroduction extends Component {
   state = {
     stage: 'mentor-speech',
   }
 
   render() {
-    const { character } = this.props;
+    const { character, onSceneEnd } = this.props;
     const npc = npcs[0];
     const { stage } = this.state;
 
@@ -71,7 +70,7 @@ export default class MentorIntroduction extends Component {
         )}
 
         {stage === 'character-name' && (
-          <CharacterName character={character} onClick={() => { console.log('clicked') }} />
+          <CharacterName character={character} onClick={onSceneEnd} />
         )}
       </>
     )
