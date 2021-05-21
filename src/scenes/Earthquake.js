@@ -8,7 +8,7 @@ export default class Earthquake extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.props.onSceneEnd();
-    }, 5000);
+    }, 4000);
   }
 
   render() {
