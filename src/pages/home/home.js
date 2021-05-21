@@ -13,6 +13,7 @@ import MentorIntroduction from '../../scenes/MentorIntroduction';
 import MentorFarewell from '../../scenes/MentorFarewell';
 import OpenTheDoor from '../../scenes/OpenTheDoor';
 import Earthquake from '../../scenes/Earthquake';
+import BreakingTheDoor from '../../scenes/BreakingTheDoor';
 
 const Home = (props) => {
   const [stage, setStage] = useState(STAGES.ASK_FOR_USER_NAME)
@@ -28,6 +29,7 @@ const Home = (props) => {
     STAGES.MENTOR_FAREWELL,
     STAGES.OPEN_THE_DOOR,
     STAGES.EARTHQUAKE,
+    STAGES.GLITCH,
   ]
 
   const nextStage = () => {
@@ -77,6 +79,10 @@ const Home = (props) => {
 
       {stage === STAGES.EARTHQUAKE && (
         <Earthquake character={character} onSceneEnd={nextStage} />
+      )}
+
+      {stage === STAGES.GLITCH && (
+        <BreakingTheDoor character={character} onSceneEnd={nextStage} />
       )}
     </div>
   );
