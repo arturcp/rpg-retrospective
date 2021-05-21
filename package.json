@@ -17,6 +17,7 @@
     "react-spring-3d-carousel": "^1.2.1",
     "react-transition-group": "^4.4.1",
     "redux": "^4.1.0",
+    "reshake": "^1.2.2",
     "styled-components": "^5.3.0",
     "web-vitals": "^1.0.1",
     "websocket": "^1.0.34"

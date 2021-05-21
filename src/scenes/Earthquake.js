@@ -1,22 +1,23 @@
 import React from 'react';
-import Konami from 'react-konami-code';
+import { Shake } from 'reshake'
 import Scenario from '../components/Scenario/Scenario';
 import Player from '../components/Sprites/Player';
 import CONSTANTS from '../domain/constants';
 
-import './mentor-farewell.scss'
-
-const MentorFarewell = (props) => {
+const earthquake = (props) => {
   const { character } = props;
 
-  const konamiAction = () => {
-    props.onSceneEnd()
-  }
-
   return (
-    <>
-      {/* The code is left, down, right, d*/}
-      <Konami action={konamiAction} code={[37, 40, 39, 68]} />
+    <Shake
+      h={5}
+      v={5}
+      r={3}
+      dur={300}
+      int={10}
+      max={100}
+      fixed={true}
+      fixedStop={false}
+      freez={false}>
       <Scenario scene="gateway">
         <Player
           image={character.avatar}
@@ -29,12 +30,8 @@ const MentorFarewell = (props) => {
           }}
         />
       </Scenario>
-
-      <div className="hint-to-player">
-        To open the door, use your power: ⬅️⬇️➡️ + D
-      </div>
-    </>
-  );
+    </Shake>
+  )
 }
 
-export default MentorFarewell;
+export default earthquake;
