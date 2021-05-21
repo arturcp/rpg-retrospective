@@ -1,12 +1,11 @@
 import React from 'react';
-import Header from '../../components/Header/Header';
+
+import './styles.scss';
 
 const commonRoom = () => {
   return (
-    <>
-      <Header />
-      <h1>Olá mundo</h1>
-    </>
+    <div className="container">
+    </div>
   )
 };
 
