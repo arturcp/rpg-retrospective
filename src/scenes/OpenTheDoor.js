@@ -24,7 +24,7 @@ const MentorFarewell = (props) => {
       </Scenario>
 
       <div className="hint-to-player">
-        Use the keys...
+        To open the door, use your power:
       </div>
     </>
   );
