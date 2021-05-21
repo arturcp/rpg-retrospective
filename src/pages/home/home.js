@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from "react-router-dom";
 
 import { STAGES } from './homeConstants';
 import Header from '../../components/Header/Header';
@@ -18,6 +19,7 @@ import BreakingTheDoor from '../../scenes/BreakingTheDoor';
 const Home = (props) => {
   const [stage, setStage] = useState(STAGES.ASK_FOR_USER_NAME)
   const [stageIndex, setStageIndex] = useState(0)
+  const history = useHistory();
 
   const stages = [
     STAGES.ASK_FOR_USER_NAME,
@@ -30,12 +32,18 @@ const Home = (props) => {
     STAGES.OPEN_THE_DOOR,
     STAGES.EARTHQUAKE,
     STAGES.GLITCH,
+    STAGES.COMMON_ROOM,
   ]
 
   const nextStage = () => {
     const nextIndex = stageIndex + 1;
     setStageIndex(nextIndex);
-    setStage(stages[nextIndex]);
+    const nextStage = stages[nextIndex];
+    if (nextStage) {
+      setStage(nextStage);
+    } else {
+      history.push('/common-room')
+    }
   }
 
   const { data } = props;
