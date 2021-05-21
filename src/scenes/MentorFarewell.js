@@ -55,7 +55,11 @@ const MentorFarewell = (props) => {
                 character_type:  'NPC',
                 npc_id: 1,
                 paragraphs: [
-                  'teste'
+                  `It is an honor to make your acquantaince, ${character.name} the ${character.title}`,
+                  `I have heard your name before. You fought the Battle of the Meadow, and unhinged the plot that Briar The Fourth concocted to take down the Mountains of Hagwar.`,
+                  `Providence has sent you here today. Chaos must be averted, but my presence is required elsewhere. I salute you and bless the path that lies ahead of you.`,
+                  `Hurl the door and meet your fate, ${character.name} the ${character.title}`,
+                  `We will see each other before the end. Farewell.`
                 ]
               }
             ]

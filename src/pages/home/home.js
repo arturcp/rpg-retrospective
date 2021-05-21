@@ -34,7 +34,8 @@ const Home = (props) => {
     setStage(stages[nextIndex]);
   }
 
-  const { character } = props.data;
+  const { data } = props;
+  const { character } = data;
 
   return (
     <div>

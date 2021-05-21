@@ -3,7 +3,6 @@ import * as actionTypes from './actions';
 const initialState = {
   userName: '',
   data: {
-    name: '',
     type: '',
     character: {},
   },
@@ -24,7 +23,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         data: {
           ...state.data,
-          type: action.type,
+          type: action.characterType,
           character: action.character
         },
       };
@@ -33,7 +32,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         data: {
           ...state.data,
-          name: action.name
+          character: {
+            ...state.data.character,
+            name: action.name
+          }
         }
       };
     default:
