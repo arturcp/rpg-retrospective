@@ -76,3 +76,5 @@ Carousel: https://github.com/gutiguy/react-spring-3d-carousel#readme and https:/
 Text effect for prologue: https://dev.to/gscode/10-cool-css-text-effects-3elk
 
 Konami code: https://gomakethings.com/how-to-create-a-konami-code-easter-egg-with-vanilla-js/#:~:text=The%20Konami%20Code%20is%20Up,would%20give%20you%2030%20lives.
+
+Reshake: https://elrumordelaluz.github.io/reshake/
