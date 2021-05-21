@@ -10583,6 +10583,11 @@ requires-port@^1.0.0:
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
+reshake@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/reshake/-/reshake-1.2.2.tgz#bb83df76c9078722b88fbbb39ce6f1d895b9730f"
+  integrity sha512-MTygV2ufdEXvH/xm7vnZroXDe7b7it3OXKyqWMKL2CmQh6sSiHuwEObTgeR5vbmY/waO84f9uzr9fH+eScwjCw==
+
 resize-observer-polyfill@^1.5.0, resize-observer-polyfill@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
