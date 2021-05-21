@@ -74,3 +74,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 Carousel: https://github.com/gutiguy/react-spring-3d-carousel#readme and https://codesandbox.io/s/1v96j74484?view=preview&file=/src/example.js:1505-1725
 
 Text effect for prologue: https://dev.to/gscode/10-cool-css-text-effects-3elk
+
+Konami code: https://gomakethings.com/how-to-create-a-konami-code-easter-egg-with-vanilla-js/#:~:text=The%20Konami%20Code%20is%20Up,would%20give%20you%2030%20lives.
