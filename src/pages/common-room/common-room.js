@@ -38,6 +38,14 @@ class CommonRoom extends Component {
     };
   }
 
+  sendMessage = (type, value) => {
+    client.send(JSON.stringify({
+      type: type,
+      value: value,
+      user: this.state.character
+    }))
+  }
+
   onNextHandler = () => {
     const { showModal, modalStage } = this.state;
     if (showModal) {
@@ -48,6 +56,7 @@ class CommonRoom extends Component {
       } else if (modalStage === 'listItens') {
         this.setState({ modalStage: 'instructions' });
       } else if (modalStage === 'instructions') {
+        this.sendMessage('connection', '1')
         this.setState({ modalStage: '', showModal: false });
       }
     }
@@ -103,7 +112,6 @@ class CommonRoom extends Component {
                 )}
               </>
             )}
-
           </Modal>
         )}
       </div>
