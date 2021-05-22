@@ -8,13 +8,14 @@ import './styles.scss';
 //
 // <Modal
 //   buttonText="Close"
+//   showButton
 //   title="My first modal"
 //   onButtonClick={() => { console.log('clicked'); }}
 //   >
 //   Here comes a text
 // </Modal>
 const modal = (props) => {
-  const { onButtonClick, title, buttonText } = props;
+  const { onButtonClick, title, buttonText, showButton } = props;
 
   return (
     <>
@@ -27,9 +28,11 @@ const modal = (props) => {
           {props.children}
         </div>
         <div className="modal-actions">
-          <Button onClick={onButtonClick}>
-            {buttonText}
-          </Button>
+          {showButton && (
+            <Button onClick={onButtonClick}>
+              {buttonText}
+            </Button>
+          )}
         </div>
       </div>
     </>

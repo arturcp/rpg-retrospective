@@ -20,9 +20,15 @@
   .modal-body {
     overflow: scroll;
     min-height: 70%;
+    font-size: 18px;
+    text-align: left;
   }
 
   .modal-actions {
     text-align: right;
+  }
+
+  .modal-header {
+    font-size: 25px;
   }
 }
