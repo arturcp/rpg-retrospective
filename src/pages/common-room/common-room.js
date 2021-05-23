@@ -29,7 +29,7 @@ import './styles.scss';
 class CommonRoom extends Component {
   state = {
     connected: false,
-    showModal: true,
+    showModal: false,
     loading: true,
     modalStage: 'initial',
     players: {},
@@ -52,8 +52,8 @@ class CommonRoom extends Component {
 
     this.client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
-      console.log('Message arrived: ', dataFromServer.type);
-      console.log('Message body: ', dataFromServer.message)
+      // console.log('Message arrived: ', dataFromServer.type);
+      // console.log('Message body: ', dataFromServer.message)
 
       if (dataFromServer.type === 'client-connected') {
         console.log('Connected!: ', dataFromServer);
@@ -76,7 +76,6 @@ class CommonRoom extends Component {
         this.setState({ players: dataFromServer.message })
       }
 
-
       if (dataFromServer.type === 'disconnected') {
         // Show a message and a link to restart
       }
@@ -86,19 +85,15 @@ class CommonRoom extends Component {
         // making it start from scratch
       }
 
-      if (dataFromServer.type === 'player-moved' && dataFromServer.message.characterName) {
+      if (dataFromServer.type === 'player-moved' && dataFromServer.message.character.name) {
         // Find the player in the list of players from the
         // current page's state and change its position
+        console.log('== player moved ==');
         const currentPlayers = {...this.state.players};
-        currentPlayers[dataFromServer.message.characterName] = dataFromServer.message;
-        this.setState({
-          players: currentPlayers
-        })
+        const characterName = dataFromServer.message.character.name;
+        currentPlayers[characterName] = dataFromServer.message;
+        this.setState({ players: currentPlayers })
       }
-
-      // if (dataFromServer.type === 'message') {
-      //   this.saveReceivedMessage(dataFromServer);
-      // }
     };
   }
 
@@ -130,35 +125,39 @@ class CommonRoom extends Component {
       return null;
     } else {
       const list = [];
-      const self = this;
 
       console.log('Reading players from state:')
       console.log(this.state.players);
 
-      Object.keys(this.state.players).forEach(function(key) {
-        var value = self.state.players[key];
+      Object.keys(this.state.players).forEach((key) => {
+        var value = this.state.players[key];
+        console.log('value.position: ', value.position);
         const character = characters[value.character.type];
-        list.push(<Player
-          key={value.character.name}
-          image={character.avatar}
-          data={CONSTANTS.SPRITE_DIMENSIONS}
-          allowInteraction={value.userID === self.state.userID}
-          initialData={{
-            position: value.position,
-            direction: value.direction,
-            step: value.step,
-          }}
-          onMove={(position, direction, step) => {
-            self.sendMessage('player-moved', {
-              characterName: value.character.name,
-              userID: value.userID,
-              position,
-              direction,
-              step,
-              character: value.character
-            })
-          }}
-        />);
+        if (character) {
+          list.push(<Player
+            key={value.character.name}
+            image={character.avatar}
+            data={CONSTANTS.SPRITE_DIMENSIONS}
+            allowInteraction={value.userID === this.state.userID}
+            initialData={{
+              position: {
+                x: value.position.x,
+                y: value.position.y,
+              },
+              direction: value.direction,
+              step: value.step,
+            }}
+            onMove={(position, direction, step) => {
+              this.sendMessage('player-moved', {
+                userID: value.userID,
+                position,
+                direction,
+                step,
+                character: value.character
+              })
+            }}
+          />);
+        }
       })
 
       return list;
@@ -169,6 +168,8 @@ class CommonRoom extends Component {
     const { showModal, loading, modalStage } = this.state;
     const { data } = this.props;
     const { character } = data;
+
+    console.log('render...');
 
     return (
       <div className="container">
@@ -218,7 +219,7 @@ class CommonRoom extends Component {
           </Modal>
         )}
 
-        {this.showPlayers()}
+        {!showModal && this.showPlayers()}
       </div>
     )
   }

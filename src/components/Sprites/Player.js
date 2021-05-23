@@ -122,7 +122,7 @@ Player.propTypes = {
   //
   // This is a hash and accept the following attributes:
   //
-  // # initialPosition
+  // # position
   //
   // This property is a hash containing the position, on screen,
   // of the player. After step of the animation (or after each
@@ -131,12 +131,12 @@ Player.propTypes = {
   //
   // The valid keys for this hash are x and y.
   //
-  // # initialStep
+  // # step
   //
   // Step is the column of the sprite that will be displayed.
   // To start the image in a given column, set the initialStep.
   //
-  // # initialDirection
+  // # direction
   //
   // Each row in the sprite represents a different direction.
   // To start the image in a given direction (row), set the
