@@ -15,6 +15,7 @@ const Player = (props) => {
     initialData,
     movementsRestrictions,
     destination,
+    onMove,
   } = props;
 
   const maxSteps = 3;
@@ -28,6 +29,10 @@ const Player = (props) => {
   const move = (movementDirection) => {
     if (!movementsRestrictions || movementsRestrictions.directions.includes(movementDirection)) {
       walk(movementDirection);
+
+      if (onMove && typeof onMove === 'function') {
+        onMove(position, direction, step)
+      }
 
       if (destination && (position.x === destination.x || position.y === destination.y)) {
         destination.arrived();
@@ -139,6 +144,9 @@ Player.propTypes = {
   // Check the list of directions and their numeric code at
   // `src/hooks/use-walk/useWalk.js`.
   initialData: PropTypes.object,
+
+  // Function that will be called then the player moves.
+  onMove: PropTypes.func,
 };
 
 export default Player;

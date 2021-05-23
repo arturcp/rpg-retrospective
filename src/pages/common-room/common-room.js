@@ -13,13 +13,28 @@ import './styles.scss';
 
 const client = new W3CWebSocket('ws://127.0.0.1:8000');
 
+/*
+  Players example:
+
+  [{
+    userID: 123123123123,
+    position: { x: 175, y: 433 },
+    direction: 2,
+    step: 1,
+    character: {
+      name: 'Gandalf',
+      type: 'male-wizard'
+    }
+  }]
+*/
 class CommonRoom extends Component {
   state = {
     connected: false,
     showModal: true,
     loading: true,
     modalStage: 'initial',
-    players: {}
+    players: {},
+    userID: null,
   }
 
   componentDidMount() {
@@ -34,17 +49,19 @@ class CommonRoom extends Component {
 
     client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
-      console.log('Got a reply: ', dataFromServer);
+      console.log('Message arrived: ', dataFromServer.type);
+      console.log('Message body: ', dataFromServer.message)
 
       if (dataFromServer.type === 'client-connected') {
         console.log('Connected!: ', dataFromServer);
+        this.setState({ userID: dataFromServer.userID })
         this.sendMessage('game-connection-request', {
-          userID: 1,
+          userID: dataFromServer.userID,
           position: { x: 175, y: 433 },
           direction: 2,
           step: 1,
           character: {
-            name: 'Nome do personagem',
+            name: new Date(),
             type: 'female-archer'
           }
         });
@@ -66,11 +83,16 @@ class CommonRoom extends Component {
         // making it start from scratch
       }
 
-      if (dataFromServer.type === 'playerMoved') {
+      if (dataFromServer.type === 'player-moved') {
         // Find the player in the list of players from the
         // current page's state and change its position
+        console.log('player moved ', dataFromServer)
+        const currentPlayers = {...this.state.players};
+        currentPlayers[dataFromServer.message.characterName] = dataFromServer.message;
+        this.setState({
+          players: currentPlayers
+        })
       }
-
 
       // if (dataFromServer.type === 'message') {
       //   this.saveReceivedMessage(dataFromServer);
@@ -79,7 +101,6 @@ class CommonRoom extends Component {
   }
 
   sendMessage = (type, value) => {
-    console.log('Sending message ', type, ' with value ', value);
     client.send(JSON.stringify({
       type: type,
       value: value
@@ -88,8 +109,6 @@ class CommonRoom extends Component {
 
   onNextHandler = () => {
     const { showModal, modalStage } = this.state;
-    // const { character } = this.props;
-    // const character = characters['female-archer'];
 
     if (showModal) {
       if (modalStage === 'initial') {
@@ -111,29 +130,36 @@ class CommonRoom extends Component {
       const list = [];
       const self = this;
 
-      Object.keys(this.state.players).forEach(function (key) {
+      console.log('state')
+      console.log(this.state.players);
+
+      Object.keys(this.state.players).forEach(function(key) {
         var value = self.state.players[key];
         const character = characters[value.character.type];
         list.push(<Player
           key={value.character.name}
           image={character.avatar}
           data={CONSTANTS.SPRITE_DIMENSIONS}
-          allowInteraction={true}
+          allowInteraction={value.userID === self.state.userID}
           initialData={{
             position: value.position,
             direction: value.direction,
             step: value.step,
           }}
-          // movementsRestrictions={{
-          //   directions: ['left', 'right', 'up', 'down'],
-          //   minY: 33,
-          //   maxY: 68,
-          //   maxX: 374,
-          //   minX: 0,
-          // }}
+          onMove={(position, direction, step) => {
+            self.sendMessage('player-moved', {
+              characterName: value.character.name,
+              userID: value.userID,
+              position,
+              direction,
+              step,
+              character: value.character
+            })
+          }}
         />);
       })
 
+      console.log(list.length)
       return list;
     }
   }
@@ -142,6 +168,8 @@ class CommonRoom extends Component {
     const { showModal, loading, modalStage } = this.state;
     const { data } = this.props;
     const { character } = data;
+
+    console.log('Rendering...');
 
     return (
       <div className="container">
