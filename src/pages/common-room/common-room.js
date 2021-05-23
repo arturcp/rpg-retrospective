@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 
 import Modal from '../../components/UI/Modal/Modal';
 import loadingImage from '../../images/loading.gif';
+import Player from '../../components/Sprites/Player';
+import CONSTANTS from '../../domain/constants';
+import { characters } from '../../domain/characters';
 import { Input } from 'antd';
 
 import './styles.scss';
@@ -15,7 +18,8 @@ class CommonRoom extends Component {
     connected: false,
     showModal: true,
     loading: true,
-    modalStage: 'initial'
+    modalStage: 'initial',
+    players: {}
   }
 
   componentDidMount() {
@@ -30,7 +34,43 @@ class CommonRoom extends Component {
 
     client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
-      // console.log('Get a reply: ', dataFromServer);
+      console.log('Got a reply: ', dataFromServer);
+
+      if (dataFromServer.type === 'client-connected') {
+        console.log('Connected!: ', dataFromServer);
+        this.sendMessage('game-connection-request', {
+          userID: 1,
+          position: { x: 175, y: 433 },
+          direction: 2,
+          step: 1,
+          character: {
+            name: 'Nome do personagem',
+            type: 'female-archer'
+          }
+        });
+      }
+
+      if (dataFromServer.type === 'new-player') {
+        // Redraw all players
+        console.log(dataFromServer);
+        this.setState({ players: dataFromServer.message })
+      }
+
+
+      if (dataFromServer.type === 'disconnected') {
+        // Show a message and a link to restart
+      }
+
+      if (dataFromServer.type === 'reset') {
+        // REstart the user but only in this page, not
+        // making it start from scratch
+      }
+
+      if (dataFromServer.type === 'playerMoved') {
+        // Find the player in the list of players from the
+        // current page's state and change its position
+      }
+
 
       // if (dataFromServer.type === 'message') {
       //   this.saveReceivedMessage(dataFromServer);
@@ -39,15 +79,18 @@ class CommonRoom extends Component {
   }
 
   sendMessage = (type, value) => {
+    console.log('Sending message ', type, ' with value ', value);
     client.send(JSON.stringify({
       type: type,
-      value: value,
-      user: this.state.character
+      value: value
     }))
   }
 
   onNextHandler = () => {
     const { showModal, modalStage } = this.state;
+    // const { character } = this.props;
+    // const character = characters['female-archer'];
+
     if (showModal) {
       if (modalStage === 'initial') {
         this.setState({ modalStage: 'chooseTheme' });
@@ -56,9 +99,42 @@ class CommonRoom extends Component {
       } else if (modalStage === 'listItens') {
         this.setState({ modalStage: 'instructions' });
       } else if (modalStage === 'instructions') {
-        this.sendMessage('connection', '1')
         this.setState({ modalStage: '', showModal: false });
       }
+    }
+  }
+
+  showPlayers = () => {
+    if (this.state.showModal) {
+      return null;
+    } else {
+      const list = [];
+      const self = this;
+
+      Object.keys(this.state.players).forEach(function (key) {
+        var value = self.state.players[key];
+        const character = characters[value.character.type];
+        list.push(<Player
+          key={value.character.name}
+          image={character.avatar}
+          data={CONSTANTS.SPRITE_DIMENSIONS}
+          allowInteraction={true}
+          initialData={{
+            position: value.position,
+            direction: value.direction,
+            step: value.step,
+          }}
+          // movementsRestrictions={{
+          //   directions: ['left', 'right', 'up', 'down'],
+          //   minY: 33,
+          //   maxY: 68,
+          //   maxX: 374,
+          //   minX: 0,
+          // }}
+        />);
+      })
+
+      return list;
     }
   }
 
@@ -114,6 +190,8 @@ class CommonRoom extends Component {
             )}
           </Modal>
         )}
+
+        {this.showPlayers()}
       </div>
     )
   }
