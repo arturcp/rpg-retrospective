@@ -11,7 +11,6 @@ import { Input } from 'antd';
 
 import './styles.scss';
 
-const client = new W3CWebSocket('ws://127.0.0.1:8000');
 
 /*
   Players example:
@@ -37,39 +36,43 @@ class CommonRoom extends Component {
     userID: null,
   }
 
+  client = new W3CWebSocket('ws://127.0.0.1:8000');
+
   componentDidMount() {
+    const { data } = this.props;
+    const { character } = data;
+
     setTimeout(() => {
       this.setState({ loading: false })
     }, 2000);
 
-    client.onopen = () => {
+    this.client.onopen = () => {
       this.setState({ connected: true })
-      console.log('Websocket client connected');
     };
 
-    client.onmessage = (message) => {
+    this.client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
       console.log('Message arrived: ', dataFromServer.type);
       console.log('Message body: ', dataFromServer.message)
 
       if (dataFromServer.type === 'client-connected') {
         console.log('Connected!: ', dataFromServer);
-        this.setState({ userID: dataFromServer.userID })
+        this.setState({ userID: dataFromServer.userID });
         this.sendMessage('game-connection-request', {
           userID: dataFromServer.userID,
           position: { x: 175, y: 433 },
           direction: 2,
           step: 1,
           character: {
-            name: new Date(),
-            type: 'female-archer'
+            name: character.name,
+            type: data.type,
           }
         });
       }
 
       if (dataFromServer.type === 'new-player') {
         // Redraw all players
-        console.log(dataFromServer);
+        console.log('Updating state\'s players with ', dataFromServer.message);
         this.setState({ players: dataFromServer.message })
       }
 
@@ -79,14 +82,13 @@ class CommonRoom extends Component {
       }
 
       if (dataFromServer.type === 'reset') {
-        // REstart the user but only in this page, not
+        // Restart the user but only in this page, not
         // making it start from scratch
       }
 
-      if (dataFromServer.type === 'player-moved') {
+      if (dataFromServer.type === 'player-moved' && dataFromServer.message.characterName) {
         // Find the player in the list of players from the
         // current page's state and change its position
-        console.log('player moved ', dataFromServer)
         const currentPlayers = {...this.state.players};
         currentPlayers[dataFromServer.message.characterName] = dataFromServer.message;
         this.setState({
@@ -101,7 +103,7 @@ class CommonRoom extends Component {
   }
 
   sendMessage = (type, value) => {
-    client.send(JSON.stringify({
+    this.client.send(JSON.stringify({
       type: type,
       value: value
     }))
@@ -130,7 +132,7 @@ class CommonRoom extends Component {
       const list = [];
       const self = this;
 
-      console.log('state')
+      console.log('Reading players from state:')
       console.log(this.state.players);
 
       Object.keys(this.state.players).forEach(function(key) {
@@ -159,7 +161,6 @@ class CommonRoom extends Component {
         />);
       })
 
-      console.log(list.length)
       return list;
     }
   }
@@ -168,8 +169,6 @@ class CommonRoom extends Component {
     const { showModal, loading, modalStage } = this.state;
     const { data } = this.props;
     const { character } = data;
-
-    console.log('Rendering...');
 
     return (
       <div className="container">
