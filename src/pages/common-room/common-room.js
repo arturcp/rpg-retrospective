@@ -89,12 +89,32 @@ class CommonRoom extends Component {
         // Find the player in the list of players from the
         // current page's state and change its position
         console.log('== player moved ==');
-        const currentPlayers = {...this.state.players};
+        const currentPlayers = this.clonePlayers();
+        // const currentPlayers = {...this.state.players};
         const characterName = dataFromServer.message.character.name;
         currentPlayers[characterName] = dataFromServer.message;
-        this.setState({ players: currentPlayers })
+
+        this.setState({ players: currentPlayers });
       }
     };
+  }
+
+  clonePlayers = () => {
+    return JSON.parse(JSON.stringify(this.state.players));
+    // const players = {}
+    // Object.keys(this.state.players).forEach((key) => {
+    //   players[key] = {
+    //     ...this.state.players[key],
+    //     position: {
+    //       ...this.state.players[key].position,
+    //     },
+    //     character: {
+    //       ...this.state.players[key].character
+    //     }
+    //   }
+    // });
+
+    // return players;
   }
 
   sendMessage = (type, value) => {
@@ -130,38 +150,42 @@ class CommonRoom extends Component {
       console.log(this.state.players);
 
       Object.keys(this.state.players).forEach((key) => {
-        var value = this.state.players[key];
-        console.log('value.position: ', value.position);
-        const character = characters[value.character.type];
-        if (character) {
-          list.push(<Player
-            key={value.character.name}
-            image={character.avatar}
-            data={CONSTANTS.SPRITE_DIMENSIONS}
-            allowInteraction={value.userID === this.state.userID}
-            initialData={{
-              position: {
-                x: value.position.x,
-                y: value.position.y,
-              },
-              direction: value.direction,
-              step: value.step,
-            }}
-            onMove={(position, direction, step) => {
-              this.sendMessage('player-moved', {
-                userID: value.userID,
-                position,
-                direction,
-                step,
-                character: value.character
-              })
-            }}
-          />);
-        }
+        var player = this.state.players[key];
+        console.log(player.character.name, ' player.position: ', player.position);
+        list.push(this.buildPlayer(player));
       })
 
       return list;
     }
+  }
+
+  buildPlayer = (player) => {
+    const character = characters[player.character.type];
+
+    return <Player
+      key={player.character.name}
+      // key={player.userID}
+      image={character.avatar}
+      data={CONSTANTS.SPRITE_DIMENSIONS}
+      allowInteraction={player.userID === this.state.userID}
+      initialData={{
+        position: {
+          x: player.position.x,
+          y: player.position.y,
+        },
+        direction: player.direction,
+        step: player.step,
+      }}
+      onMove={(position, direction, step) => {
+        this.sendMessage('player-moved', {
+          userID: player.userID,
+          position,
+          direction,
+          step,
+          character: player.character
+        })
+      }}
+    />;
   }
 
   render() {
