@@ -38,9 +38,24 @@ class CommonRoom extends Component {
 
   client = new W3CWebSocket('ws://127.0.0.1:8000');
 
+  getParameterByName = (name, url = window.location.href) => {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
+
   componentDidMount() {
-    const { data } = this.props;
-    const { character } = data;
+    // const { data } = this.props;
+    // const { character } = data;
+    // debugger;
+
+    const param = this.getParameterByName('type');
+    const name = this.getParameterByName('name');
+    const character = { ...characters[param], name: name };
+    const data = { type: param, character: character };
 
     setTimeout(() => {
       this.setState({ loading: false })
@@ -100,21 +115,21 @@ class CommonRoom extends Component {
   }
 
   clonePlayers = () => {
-    return JSON.parse(JSON.stringify(this.state.players));
-    // const players = {}
-    // Object.keys(this.state.players).forEach((key) => {
-    //   players[key] = {
-    //     ...this.state.players[key],
-    //     position: {
-    //       ...this.state.players[key].position,
-    //     },
-    //     character: {
-    //       ...this.state.players[key].character
-    //     }
-    //   }
-    // });
+    // return JSON.parse(JSON.stringify(this.state.players));
+    const players = {}
+    Object.keys(this.state.players).forEach((key) => {
+      players[key] = {
+        ...this.state.players[key],
+        position: {
+          ...this.state.players[key].position,
+        },
+        character: {
+          ...this.state.players[key].character
+        }
+      }
+    });
 
-    // return players;
+    return players;
   }
 
   sendMessage = (type, value) => {
@@ -161,6 +176,8 @@ class CommonRoom extends Component {
 
   buildPlayer = (player) => {
     const character = characters[player.character.type];
+
+    console.log(`Drawing ${player.character.name} at ${player.position.x}, ${player.position.y} (${player.direction})`)
 
     return <Player
       key={player.character.name}
