@@ -6,6 +6,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import loadingImage from '../../images/loading.gif';
 import Player from '../../components/Sprites/Player';
 import Actor from '../../components/Sprites/Actor';
+import { receiveMessage } from './receive-message';
 import CONSTANTS from '../../domain/constants';
 import { characters } from '../../domain/characters';
 import { Input } from 'antd';
@@ -30,12 +31,18 @@ import './styles.scss';
 class CommonRoom extends Component {
   state = {
     connected: false,
-    showModal: false,
+    showModal: true,
     loading: true,
     modalStage: 'initial',
     players: {},
     userID: null,
   }
+
+  themeRef = React.createRef();
+  themeOption1Ref = React.createRef();
+  themeOption2Ref = React.createRef();
+  themeOption3Ref = React.createRef();
+  themeOption4Ref = React.createRef();
 
   client = new W3CWebSocket('ws://127.0.0.1:8000');
 
@@ -51,7 +58,6 @@ class CommonRoom extends Component {
   componentDidMount() {
     // const { data } = this.props;
     // const { character } = data;
-    // debugger;
 
     const param = this.getParameterByName('type');
     const name = this.getParameterByName('name');
@@ -68,69 +74,18 @@ class CommonRoom extends Component {
 
     this.client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
-      // console.log('Message arrived: ', dataFromServer.type);
-      // console.log('Message body: ', dataFromServer.message)
 
-      if (dataFromServer.type === 'client-connected') {
-        console.log('Connected!: ', dataFromServer);
-        this.setState({ userID: dataFromServer.userID });
-        this.sendMessage('game-connection-request', {
-          userID: dataFromServer.userID,
-          position: { x: 175, y: 433 },
-          direction: 2,
-          step: 1,
-          character: {
-            name: character.name,
-            type: data.type,
-          }
-        });
-      }
+      const newState = receiveMessage(dataFromServer, {
+        character: character,
+        characterType: data.type,
+        players: this.state.players,
+        sendMessage: this.sendMessage,
+      });
 
-      if (dataFromServer.type === 'new-player') {
-        // Redraw all players
-        console.log('Updating state\'s players with ', dataFromServer.message);
-        this.setState({ players: dataFromServer.message })
-      }
-
-      if (dataFromServer.type === 'disconnected') {
-        // Show a message and a link to restart
-      }
-
-      if (dataFromServer.type === 'reset') {
-        // Restart the user but only in this page, not
-        // making it start from scratch
-      }
-
-      if (dataFromServer.type === 'player-moved' && dataFromServer.message.character.name) {
-        // Find the player in the list of players from the
-        // current page's state and change its position
-        console.log('== player moved ==');
-        const currentPlayers = this.clonePlayers();
-        // const currentPlayers = {...this.state.players};
-        const characterName = dataFromServer.message.character.name;
-        currentPlayers[characterName] = dataFromServer.message;
-
-        this.setState({ players: currentPlayers });
+      if (newState !== {}) {
+        this.setState(newState);
       }
     };
-  }
-
-  clonePlayers = () => {
-    // return JSON.parse(JSON.stringify(this.state.players));
-    const players = {}
-    Object.keys(this.state.players).forEach((key) => {
-      players[key] = {
-        ...this.state.players[key],
-        position: {
-          ...this.state.players[key].position,
-        },
-        character: {
-          ...this.state.players[key].character
-        }
-      }
-    });
-
-    return players;
   }
 
   sendMessage = (type, value) => {
@@ -144,14 +99,27 @@ class CommonRoom extends Component {
     const { showModal, modalStage } = this.state;
 
     if (showModal) {
-      if (modalStage === 'initial') {
-        this.setState({ modalStage: 'chooseTheme' });
-      } else if (modalStage === 'chooseTheme') {
-        this.setState({ modalStage: 'listItens' });
-      } else if (modalStage === 'listItens') {
-        this.setState({ modalStage: 'instructions' });
-      } else if (modalStage === 'instructions') {
-        this.setState({ modalStage: '', showModal: false });
+      switch (modalStage) {
+        case 'initial':
+          this.setState({ modalStage: 'chooseTheme' });
+          break;
+        case 'chooseTheme':
+          const themeInput = this.themeRef.current.input;
+          if (themeInput.value.trim() !== '') {
+            this.setState({ modalStage: 'listItens' });
+          } else {
+            themeInput.classList.add('required')
+            themeInput.focus();
+          }
+          break;
+        case 'listItens':
+          this.setState({ modalStage: 'instructions' });
+          break;
+        case 'instructions':
+          this.setState({ modalStage: '', showModal: false });
+          break;
+        default:
+          break;
       }
     }
   }
@@ -226,8 +194,6 @@ class CommonRoom extends Component {
     const { data } = this.props;
     const { character } = data;
 
-    console.log('render...');
-
     return (
       <div className="container">
         {showModal && (
@@ -238,7 +204,7 @@ class CommonRoom extends Component {
             onButtonClick={this.onNextHandler}
           >
             {loading && (
-              <img src={loadingImage} alt="loading"/>
+              <img className="loading" src={loadingImage} alt="loading"/>
             )}
 
             {!loading && (
@@ -250,17 +216,18 @@ class CommonRoom extends Component {
                 {modalStage === 'chooseTheme' && (
                   <>
                     <p>First, choose a theme you care about. For example, it can be animals, TV series, movies, and so on.</p>
-                    <Input type="text" className="theme" placeholder="Theme" />
+                    <Input type="text" className="theme" placeholder="Theme" ref={this.themeRef} />
                   </>
                 )}
 
                 {modalStage === 'listItens' && (
                   <>
                     <p>Now, list four of itens of this theme. The other will have to guess which one of these four is your favorite.</p>
-                    <Input type="text" className="theme-item" placeholder="Theme" />
-                    <Input type="text" className="theme-item" placeholder="Theme" />
-                    <Input type="text" className="theme-item" placeholder="Theme" />
-                    <Input type="text" className="theme-item" placeholder="Theme" />
+
+                    <Input type="text" className="theme-item" placeholder="Theme" ref={this.themeOption1Ref} />
+                    <Input type="text" className="theme-item" placeholder="Theme" ref={this.themeOption2Ref} />
+                    <Input type="text" className="theme-item" placeholder="Theme" ref={this.themeOption3Ref} />
+                    <Input type="text" className="theme-item" placeholder="Theme" ref={this.themeOption4Ref} />
                   </>
                 )}
 
