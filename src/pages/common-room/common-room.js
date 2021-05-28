@@ -3,16 +3,15 @@ import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import { connect } from 'react-redux';
 
 import Modal from '../../components/UI/Modal/Modal';
+import PlayerList from './components/PlayerList';
 import loadingImage from '../../images/loading.gif';
-import Player from '../../components/Sprites/Player';
-import Actor from '../../components/Sprites/Actor';
 import { receiveMessage } from './receive-message';
-import CONSTANTS from '../../domain/constants';
+import { handleModalStage } from './modal-stage';
+import { getParameterByName } from './get-parameter-by-name';
 import { characters } from '../../domain/characters';
 import { Input } from 'antd';
 
 import './styles.scss';
-
 
 /*
   Players example:
@@ -46,21 +45,12 @@ class CommonRoom extends Component {
 
   client = new W3CWebSocket('ws://127.0.0.1:8000');
 
-  getParameterByName = (name, url = window.location.href) => {
-    name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-  }
-
   componentDidMount() {
     // const { data } = this.props;
     // const { character } = data;
 
-    const param = this.getParameterByName('type');
-    const name = this.getParameterByName('name');
+    const param = getParameterByName('type');
+    const name = getParameterByName('name');
     const character = { ...characters[param], name: name };
     const data = { type: param, character: character };
 
@@ -75,52 +65,30 @@ class CommonRoom extends Component {
     this.client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
 
-      const newState = receiveMessage(dataFromServer, {
-        character: character,
-        characterType: data.type,
-        players: this.state.players,
-        sendMessage: this.sendMessage,
-      });
-
-      if (newState !== {}) {
-        this.setState(newState);
-      }
+      this.setState(
+        receiveMessage(dataFromServer, {
+          character: character,
+          characterType: data.type,
+          players: this.state.players,
+          sendMessage: this.sendMessage,
+        })
+      );
     };
   }
 
   sendMessage = (type, value) => {
-    this.client.send(JSON.stringify({
-      type: type,
-      value: value
-    }))
+    this.client.send(JSON.stringify({ type: type, value: value }));
   }
 
   onNextHandler = () => {
     const { showModal, modalStage } = this.state;
 
     if (showModal) {
-      switch (modalStage) {
-        case 'initial':
-          this.setState({ modalStage: 'chooseTheme' });
-          break;
-        case 'chooseTheme':
-          const themeInput = this.themeRef.current.input;
-          if (themeInput.value.trim() !== '') {
-            this.setState({ modalStage: 'listItens' });
-          } else {
-            themeInput.classList.add('required')
-            themeInput.focus();
-          }
-          break;
-        case 'listItens':
-          this.setState({ modalStage: 'instructions' });
-          break;
-        case 'instructions':
-          this.setState({ modalStage: '', showModal: false });
-          break;
-        default:
-          break;
-      }
+      this.setState(
+        handleModalStage(modalStage, {
+          themeRef: this.themeRef,
+        })
+      );
     }
   }
 
@@ -136,57 +104,17 @@ class CommonRoom extends Component {
       Object.keys(this.state.players).forEach((key) => {
         var player = this.state.players[key];
         console.log(player.character.name, ' player.position: ', player.position);
-        list.push(this.buildPlayer(player));
+        list.push(
+          <PlayerList
+            player={player}
+            userID={this.state.userID}
+            sendMessage={this.sendMessage}
+          />
+        );
       })
 
       return list;
     }
-  }
-
-  buildPlayer = (player) => {
-    const character = characters[player.character.type];
-    const currentPlayer = player.userID === this.state.userID;
-
-    console.log(`Drawing ${player.character.name} at ${player.position.x}, ${player.position.y} (${player.direction})`)
-
-    return (
-      <div key={player.character.name}>
-        {currentPlayer && (
-          <Player
-            image={character.avatar}
-            data={CONSTANTS.SPRITE_DIMENSIONS}
-            allowInteraction={true}
-            initialData={{
-              position: {
-                x: player.position.x,
-                y: player.position.y,
-              },
-              direction: player.direction,
-              step: player.step,
-            }}
-            onMove={(position, direction, step) => {
-              this.sendMessage('player-moved', {
-                userID: player.userID,
-                position,
-                direction,
-                step,
-                character: player.character
-              })
-            }}
-          />
-        )}
-
-        {!currentPlayer && (
-          <Actor
-            image={character.avatar}
-            data={CONSTANTS.SPRITE_DIMENSIONS}
-            step={player.step}
-            direction={player.direction}
-            position={player.position}
-          />
-        )}
-      </div>
-    )
   }
 
   render() {
