@@ -1,8 +1,8 @@
 import React from 'react';
-import Player from '../../components/Sprites/Player';
-import Actor from '../../components/Sprites/Actor';
-import CONSTANTS from '../../domain/constants';
-import { characters } from '../../domain/characters';
+import Player from '../../../components/Sprites/Player';
+import Actor from '../../../components/Sprites/Actor';
+import CONSTANTS from '../../../domain/constants';
+import { characters } from '../../../domain/characters';
 
 const PlayerList = (props) => {
   const { player, userID, sendMessage } = props;

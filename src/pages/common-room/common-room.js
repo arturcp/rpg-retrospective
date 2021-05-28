@@ -87,6 +87,10 @@ class CommonRoom extends Component {
       this.setState(
         handleModalStage(modalStage, {
           themeRef: this.themeRef,
+          themeOption1Ref: this.themeOption1Ref,
+          themeOption2Ref: this.themeOption2Ref,
+          themeOption3Ref: this.themeOption3Ref,
+          themeOption4Ref: this.themeOption4Ref,
         })
       );
     }
