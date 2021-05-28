@@ -1,0 +1,15 @@
+.sprite-container {
+  position: relative;
+
+  .health-bar-container {
+    position: absolute;
+    width: 37px;
+    padding: 1px;
+    background-color: #eee;
+    border: 1px solid #000;
+  }
+
+  .health-bar {
+    height: 2px;
+  }
+}
