@@ -7,8 +7,6 @@ import PlayerList from './components/PlayerList';
 import loadingImage from '../../images/loading.gif';
 import { receiveMessage } from './receive-message';
 import { handleModalStage } from './modal-stage';
-// import { getParameterByName } from './get-parameter-by-name';
-// import { characters } from '../../domain/characters';
 import { Input } from 'antd';
 
 import './styles.scss';
@@ -48,11 +46,6 @@ class CommonRoom extends Component {
   componentDidMount() {
     const { data } = this.props;
     const { character } = data;
-
-    // const param = getParameterByName('type');
-    // const name = getParameterByName('name');
-    // const character = { ...characters[param], name: name };
-    // const data = { type: param, character: character };
 
     setTimeout(() => {
       this.setState({ loading: false })
