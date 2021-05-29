@@ -16,6 +16,8 @@ const PlayerList = (props) => {
     <div key={player.character.name}>
       {currentPlayer && (
         <Player
+          showLifeBar
+          showName
           image={character.avatar}
           data={CONSTANTS.SPRITE_DIMENSIONS}
           allowInteraction={true}
@@ -41,11 +43,14 @@ const PlayerList = (props) => {
 
       {!currentPlayer && (
         <Actor
+          showLifeBar
+          showName
           image={character.avatar}
           data={CONSTANTS.SPRITE_DIMENSIONS}
           step={player.step}
           direction={player.direction}
           position={player.position}
+          name={player.character.name}
         />
       )}
     </div>

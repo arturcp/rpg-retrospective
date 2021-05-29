@@ -7,8 +7,8 @@ import PlayerList from './components/PlayerList';
 import loadingImage from '../../images/loading.gif';
 import { receiveMessage } from './receive-message';
 import { handleModalStage } from './modal-stage';
-import { getParameterByName } from './get-parameter-by-name';
-import { characters } from '../../domain/characters';
+// import { getParameterByName } from './get-parameter-by-name';
+// import { characters } from '../../domain/characters';
 import { Input } from 'antd';
 
 import './styles.scss';
@@ -46,13 +46,13 @@ class CommonRoom extends Component {
   client = new W3CWebSocket('ws://127.0.0.1:8000');
 
   componentDidMount() {
-    // const { data } = this.props;
-    // const { character } = data;
+    const { data } = this.props;
+    const { character } = data;
 
-    const param = getParameterByName('type');
-    const name = getParameterByName('name');
-    const character = { ...characters[param], name: name };
-    const data = { type: param, character: character };
+    // const param = getParameterByName('type');
+    // const name = getParameterByName('name');
+    // const character = { ...characters[param], name: name };
+    // const data = { type: param, character: character };
 
     setTimeout(() => {
       this.setState({ loading: false })
@@ -65,14 +65,15 @@ class CommonRoom extends Component {
     this.client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
 
-      this.setState(
-        receiveMessage(dataFromServer, {
-          character: character,
-          characterType: data.type,
-          players: this.state.players,
-          sendMessage: this.sendMessage,
-        })
-      );
+      const newState = receiveMessage(dataFromServer, {
+        character: character,
+        characterType: data.type,
+        players: this.state.players,
+        sendMessage: this.sendMessage,
+      });
+
+      console.log('New state after  ', dataFromServer, ': ', newState);
+      this.setState(newState);
     };
   }
 
@@ -122,13 +123,13 @@ class CommonRoom extends Component {
   }
 
   render() {
-    const { showModal, loading, modalStage } = this.state;
+    const { showModal, loading, modalStage, themeOption4 } = this.state;
     const { data } = this.props;
     const { character } = data;
 
     return (
       <div className="container">
-        {showModal && (
+        {showModal && themeOption4 === '' && (
           <Modal
             buttonText="Next"
             showButton={!loading}

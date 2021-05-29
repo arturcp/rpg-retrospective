@@ -12,4 +12,12 @@
   .health-bar {
     height: 2px;
   }
+
+  .actor-name {
+    position: absolute;
+    color: #fff;
+    text-shadow: 1px 2px black;
+    width: 120px;
+    text-align: center;
+  }
 }

@@ -16,6 +16,9 @@ const Player = (props) => {
     movementsRestrictions,
     destination,
     onMove,
+    showLifeBar,
+    showName,
+    name,
   } = props;
 
   const maxSteps = 3;
@@ -60,6 +63,9 @@ const Player = (props) => {
       step={step}
       direction={direction}
       position={position}
+      showLifeBar={showLifeBar}
+      showName={showName}
+      name={name}
     />
   );
 };
@@ -147,6 +153,12 @@ Player.propTypes = {
 
   // Function that will be called then the player moves.
   onMove: PropTypes.func,
+
+  // If true, it will display a life status above the character.
+  showLifeBar: PropTypes.bool,
+
+  // If true, it will display the name of the character above it.
+  showName: PropTypes.bool,
 };
 
 export default Player;

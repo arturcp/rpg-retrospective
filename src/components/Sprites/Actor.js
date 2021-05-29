@@ -8,7 +8,14 @@ const Actor = (props) => {
   const [lifeColor, setLifeColor] = useState('');
 
   const {
-    image, data, step, direction, position,
+    image,
+    data,
+    step,
+    direction,
+    position,
+    showLifeBar,
+    showName,
+    name
   } = props;
 
   const { width, height } = data;
@@ -25,10 +32,19 @@ const Actor = (props) => {
     </div>
   );
 
+  const nameBar = () => (
+    <span className="actor-name" style={{
+      top: position.y + 30,
+      left: position.x - 46 }}>
+      {name}
+    </span>
+  )
+
   return (
     <div className="sprite-container">
-      {healthBar()}
-      {/* <span style={{ top: position.y - 25, left: position.x }}>nome</span> */}
+      {showLifeBar && healthBar()}
+      {showName && nameBar()}
+
       <Sprite
         image={image}
         position={position}
