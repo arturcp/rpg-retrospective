@@ -17,10 +17,12 @@ import './styles.scss';
 
   [{
     userID: 123123123123,
+    userName: 'Carlos',
     position: { x: 175, y: 433 },
     direction: 2,
     step: 1,
     character: {
+      userName: 'Carlos',
       name: 'Gandalf',
       type: 'male-wizard'
     }
@@ -45,7 +47,7 @@ class CommonRoom extends Component {
   client = new W3CWebSocket('ws://127.0.0.1:8000');
 
   componentDidMount() {
-    const { data } = this.props;
+    const { data, userName } = this.props;
     const { character } = data;
 
     setTimeout(() => {
@@ -60,7 +62,8 @@ class CommonRoom extends Component {
       const dataFromServer = JSON.parse(message.data);
 
       const newState = receiveMessage(dataFromServer, {
-        character: character,
+        userName,
+        character,
         characterType: data.type,
         players: this.state.players,
         sendMessage: this.sendMessage,
@@ -178,6 +181,7 @@ class CommonRoom extends Component {
 
 const mapStateToProps = state => {
   return {
+    userName: state.userName,
     data: state.data,
     iceBreaker: state.iceBraker,
   };

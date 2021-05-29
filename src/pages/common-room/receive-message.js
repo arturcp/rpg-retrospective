@@ -16,11 +16,12 @@ export const receiveMessage = (data, options) => {
 };
 
 const requestGameConnection = (data, options) => {
-  const { character, characterType, sendMessage } = options;
+  const { character, characterType, sendMessage, userName } = options;
 
   console.log('Connected!: ', data);
   sendMessage('game-connection-request', {
     userID: data.userID,
+    userName: userName,
     position: { x: 175, y: 433 },
     direction: 2,
     step: 1,

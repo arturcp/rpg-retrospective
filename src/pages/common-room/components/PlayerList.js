@@ -18,7 +18,7 @@ const PlayerList = (props) => {
         <Player
           showLifeBar
           showName
-          name={player.character.name}
+          name={`${player.character.name} (${player.userName})`}
           image={character.avatar}
           data={CONSTANTS.SPRITE_DIMENSIONS}
           allowInteraction={true}
@@ -51,7 +51,7 @@ const PlayerList = (props) => {
           step={player.step}
           direction={player.direction}
           position={player.position}
-          name={player.character.name}
+          name={`${player.character.name} (${player.userName})`}
         />
       )}
     </div>
