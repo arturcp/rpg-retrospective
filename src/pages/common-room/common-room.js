@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions';
 
 import Modal from '../../components/UI/Modal/Modal';
 import PlayerList from './components/PlayerList';
@@ -116,13 +117,13 @@ class CommonRoom extends Component {
   }
 
   render() {
-    const { showModal, loading, modalStage, themeOption4 } = this.state;
-    const { data } = this.props;
+    const { showModal, loading, modalStage } = this.state;
+    const { data, iceBreaker } = this.props;
     const { character } = data;
 
     return (
       <div className="container">
-        {showModal && themeOption4 === '' && (
+        {showModal && !iceBreaker.option4 && (
           <Modal
             buttonText="Next"
             showButton={!loading}
@@ -178,7 +179,21 @@ class CommonRoom extends Component {
 const mapStateToProps = state => {
   return {
     data: state.data,
+    iceBreaker: state.iceBraker,
   };
 }
 
-export default connect(mapStateToProps, null)(CommonRoom);
+const mapDispatchToProps = dispatch => {
+  return {
+    onIceBreakerInformationSaved: (theme, option1, option2, option3, option4) => dispatch({
+      type: actionTypes.SAVE_ICE_BREAKER_INFORMATION,
+      theme: theme,
+      option1: option1,
+      option2: option2,
+      option3: option3,
+      option4: option4,
+    })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommonRoom);

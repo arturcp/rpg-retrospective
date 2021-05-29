@@ -18,6 +18,7 @@ const PlayerList = (props) => {
         <Player
           showLifeBar
           showName
+          name={player.character.name}
           image={character.avatar}
           data={CONSTANTS.SPRITE_DIMENSIONS}
           allowInteraction={true}
