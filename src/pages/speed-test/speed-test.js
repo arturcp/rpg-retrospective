@@ -8,7 +8,7 @@ const SpeedTest = (props) => {
   const [stage, setStage] = useState('initial');
 
   const names = ['Artur', 'Kátia', 'Phoebe'];
-  const characterNames = ['Legolas', 'Gandalg', 'Lagertha'];
+  const characterNames = ['Legolas', 'Gandalf', 'Lagertha'];
   const types = ['female-archer', 'male-wizard', 'female-assassin'];
 
   const nameIndex = Math.floor(Math.random() * (3 - 0) + 0);

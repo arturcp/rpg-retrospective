@@ -1,0 +1,34 @@
+.admin {
+  h1, h2 {
+    color: #f1f1ed;
+  }
+
+  .semaphore {
+    border-radius: 50%;
+    width: 13px;
+    height: 13px;
+    margin-right: 10px;
+    display: inline-grid;
+  }
+
+  .green-semaphore {
+    background-color: green;
+  }
+
+  .red-semaphore {
+    background-color: red;
+  }
+
+  .player-box {
+    text-align: left;
+    width: 185px;
+    height: 180px;
+    border: 1px solid #ccc;
+    float: left;
+    margin-right: 10px;
+    margin-left: 10px;
+    background-color: #fff;
+    padding-left: 10px;
+    border-radius: 5px;
+  }
+}
