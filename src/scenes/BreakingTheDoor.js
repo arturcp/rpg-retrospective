@@ -7,7 +7,7 @@ import GlitchClip from 'react-glitch-effect/core/GlitchClip';
 const BreakingTheDoor = (props) => {
   useEffect(() => {
     setTimeout(() => props.onSceneEnd(), 4000);
-  }, []);
+  }, [props]);
 
   const { character } = props;
 

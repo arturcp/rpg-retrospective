@@ -1,0 +1,34 @@
+.modal-container {
+  position: absolute;
+  width: calc(40vw);
+  height: calc(50vh);
+  top: 25vh;
+  left: 30vw;
+  z-index: 1000;
+  background-color: #fefefe;
+  padding: 25px;
+  color: #000;
+  border-radius: 5px;
+
+  @media only screen and (max-width: 768px) {
+    width: calc(90vw);
+    height: calc(60vh);
+    top: 20vh;
+    left: 5vw;
+  }
+
+  .modal-body {
+    overflow: scroll;
+    min-height: 70%;
+    font-size: 18px;
+    text-align: left;
+  }
+
+  .modal-actions {
+    text-align: right;
+  }
+
+  .modal-header {
+    font-size: 25px;
+  }
+}

@@ -15,6 +15,10 @@ const Player = (props) => {
     initialData,
     movementsRestrictions,
     destination,
+    onMove,
+    showLifeBar,
+    showName,
+    name,
   } = props;
 
   const maxSteps = 3;
@@ -28,6 +32,10 @@ const Player = (props) => {
   const move = (movementDirection) => {
     if (!movementsRestrictions || movementsRestrictions.directions.includes(movementDirection)) {
       walk(movementDirection);
+
+      if (onMove && typeof onMove === 'function') {
+        onMove(position, direction, step)
+      }
 
       if (destination && (position.x === destination.x || position.y === destination.y)) {
         destination.arrived();
@@ -55,6 +63,9 @@ const Player = (props) => {
       step={step}
       direction={direction}
       position={position}
+      showLifeBar={showLifeBar}
+      showName={showName}
+      name={name}
     />
   );
 };
@@ -117,7 +128,7 @@ Player.propTypes = {
   //
   // This is a hash and accept the following attributes:
   //
-  // # initialPosition
+  // # position
   //
   // This property is a hash containing the position, on screen,
   // of the player. After step of the animation (or after each
@@ -126,12 +137,12 @@ Player.propTypes = {
   //
   // The valid keys for this hash are x and y.
   //
-  // # initialStep
+  // # step
   //
   // Step is the column of the sprite that will be displayed.
   // To start the image in a given column, set the initialStep.
   //
-  // # initialDirection
+  // # direction
   //
   // Each row in the sprite represents a different direction.
   // To start the image in a given direction (row), set the
@@ -139,6 +150,15 @@ Player.propTypes = {
   // Check the list of directions and their numeric code at
   // `src/hooks/use-walk/useWalk.js`.
   initialData: PropTypes.object,
+
+  // Function that will be called then the player moves.
+  onMove: PropTypes.func,
+
+  // If true, it will display a life status above the character.
+  showLifeBar: PropTypes.bool,
+
+  // If true, it will display the name of the character above it.
+  showName: PropTypes.bool,
 };
 
 export default Player;

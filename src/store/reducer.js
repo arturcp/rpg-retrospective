@@ -6,6 +6,7 @@ const initialState = {
     type: '',
     character: {},
   },
+  iceBreaker: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,7 +17,8 @@ const reducer = (state = initialState, action) => {
         data: {
           ...state.data
         },
-        userName: action.name
+        userName: action.name,
+        iceBraker: { ...state.iceBreaker },
       };
     case actionTypes.SAVE_CHARACTER:
       return {
@@ -24,8 +26,9 @@ const reducer = (state = initialState, action) => {
         data: {
           ...state.data,
           type: action.characterType,
-          character: action.character
+          character: action.character,
         },
+        iceBraker: { ...state.iceBreaker },
       };
     case actionTypes.SAVE_CHARACTER_NAME:
       return {
@@ -36,6 +39,21 @@ const reducer = (state = initialState, action) => {
             ...state.data.character,
             name: action.name
           }
+        },
+        iceBraker: { ...state.iceBreaker },
+      };
+    case actionTypes.SAVE_ICE_BREAKER_INFORMATION:
+      return {
+        ...state,
+        data: {
+          ...state.data
+        },
+        iceBreaker: {
+          theme: action.theme,
+          option1: action.option1,
+          option2: action.option2,
+          option3: action.option3,
+          option4: action.option4,
         }
       };
     default:

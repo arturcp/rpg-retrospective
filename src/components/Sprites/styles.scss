@@ -1,0 +1,23 @@
+.sprite-container {
+  position: relative;
+
+  .health-bar-container {
+    position: absolute;
+    width: 37px;
+    padding: 1px;
+    background-color: #eee;
+    border: 1px solid #000;
+  }
+
+  .health-bar {
+    height: 2px;
+  }
+
+  .actor-name {
+    position: absolute;
+    color: #fff;
+    text-shadow: 1px 2px black;
+    width: 120px;
+    text-align: center;
+  }
+}

@@ -1,25 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Sprite from './Sprite';
+import './styles.scss'
 
-const actor = (props) => {
+const Actor = (props) => {
+  const [lifePercentage, setLifePercentage] = useState(0);
+  const [lifeColor, setLifeColor] = useState('');
+
   const {
-    image, data, step, direction, position,
+    image,
+    data,
+    step,
+    direction,
+    position,
+    showLifeBar,
+    showName,
+    name
   } = props;
 
   const { width, height } = data;
 
+  if (lifePercentage === 0) {
+    const newLifePercentage = Math.random() * 80 + 20;
+    setLifePercentage(newLifePercentage);
+    setLifeColor(newLifePercentage < 40 ? '#ff8c9c' : '#8cff8c');
+  }
+
+  const healthBar = () => (
+    <div className="health-bar-container" style={{ top: position.y - 15, left: position.x }}>
+      <div className="health-bar" style={{ width: lifePercentage + '%', backgroundColor: lifeColor }}></div>
+    </div>
+  );
+
+  const nameBar = () => (
+    <span className="actor-name" style={{
+      top: position.y + 30,
+      left: position.x - 46 }}>
+      {name}
+    </span>
+  )
+
   return (
-    <Sprite
-      image={image}
-      position={position}
-      data={{
-        x: step * width,
-        y: direction * height,
-        width,
-        height,
-      }}
-    />
+    <div className="sprite-container">
+      {showLifeBar && healthBar()}
+      {showName && nameBar()}
+
+      <Sprite
+        image={image}
+        position={position}
+        data={{
+          x: step * width,
+          y: direction * height,
+          width,
+          height,
+        }}
+      />
+    </div>
   );
 };
 
@@ -90,4 +126,4 @@ Sprite.propTypes = {
   direction: PropTypes.number,
 };
 
-export default actor;
+export default Actor;
