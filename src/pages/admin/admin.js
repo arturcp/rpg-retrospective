@@ -21,7 +21,11 @@ const Admin = () => {
 
   client.onmessage = (message) => {
     const dataFromServer = JSON.parse(message.data);
-    if (dataFromServer.type === 'new-player') {
+    if (dataFromServer.type === 'client-connected') {
+      client.send(JSON.stringify({ type: 'players-list-request' }));
+    }
+
+    if (dataFromServer.type === 'players-list') {
       const newPlayers = dataFromServer.message
       setPlayers(newPlayers);
       console.log(newPlayers);
