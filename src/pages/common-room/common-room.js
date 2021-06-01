@@ -105,14 +105,16 @@ class CommonRoom extends Component {
 
       Object.keys(this.state.players).forEach((key) => {
         var player = this.state.players[key];
-        console.log(player.character.name, ' player.position: ', player.position);
-        list.push(
-          <PlayerList
-            player={player}
-            userID={this.state.userID}
-            sendMessage={this.sendMessage}
-          />
-        );
+        if (player) {
+          console.log(player.character.name, ' player.position: ', player.position);
+          list.push(
+            <PlayerList
+              player={player}
+              userID={this.state.userID}
+              sendMessage={this.sendMessage}
+            />
+          );
+        }
       })
 
       return list;
@@ -126,7 +128,7 @@ class CommonRoom extends Component {
 
     return (
       <div className="container">
-        {showModal && !iceBreaker.option4 && (
+        {showModal && iceBreaker && !iceBreaker.option4 && (
           <Modal
             buttonText="Next"
             showButton={!loading}

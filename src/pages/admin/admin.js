@@ -25,7 +25,7 @@ const Admin = () => {
       client.send(JSON.stringify({ type: 'players-list-request' }));
     }
 
-    if (dataFromServer.type === 'players-list') {
+    if (dataFromServer.type === 'players-list' || dataFromServer.type === 'player-disconnected') {
       const newPlayers = dataFromServer.message
       setPlayers(newPlayers);
       console.log(newPlayers);
@@ -34,7 +34,7 @@ const Admin = () => {
 
   // Example:
   // {
-  //   character: {name: "Gandalg", type: "female-archer"}
+  //   character: {name: "Gandalf", type: "female-archer"}
   //   direction: 2
   //   position: {x: 175, y: 433}
   //   step: 1
@@ -45,24 +45,35 @@ const Admin = () => {
     const list = [];
     Object.keys(players).forEach((key) => {
       var player = players[key];
-      const character = characters[player.character.type];
-      list.push(
-        <div key={key} className="player-box">
-          <Actor
-            image={character.avatar}
-            data={CONSTANTS.SPRITE_DIMENSIONS}
-            step="1"
-            direction="0"
-            position={{ x: '70px', y: '15px' }}
-          />
-          <br /><br /><br />
-          <span><b>User:</b> {player.userName}</span><br />
-          <span><b>Character:</b> {player.character.name}</span><br />
-          <Button type="default" size="large" onClick={() => { }}>
-            Disconnect
-          </Button>
-        </div>
-      );
+      if (player) {
+        const character = characters[player.character.type];
+        const onClickHandler = () => {
+          client.send(JSON.stringify({
+            type: 'disconnect-player',
+            value: {
+              userID: player.userID,
+              characterName: player.character.name,
+            }
+          }));
+        }
+        list.push(
+          <div key={key} className="player-box">
+            <Actor
+              image={character.avatar}
+              data={CONSTANTS.SPRITE_DIMENSIONS}
+              step="1"
+              direction="0"
+              position={{ x: '60px', y: '15px' }}
+            />
+            <br /><br /><br />
+            <span><b>User:</b> {player.userName}</span><br />
+            <span><b>Character:</b> {player.character.name}</span><br /><br />
+            <Button type="default" size="large" onClick={onClickHandler}>
+              Disconnect
+            </Button>
+          </div>
+        );
+      }
     });
 
     return list;
