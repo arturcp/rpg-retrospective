@@ -28,7 +28,6 @@ const Admin = () => {
     if (dataFromServer.type === 'players-list' || dataFromServer.type === 'player-disconnected') {
       const newPlayers = dataFromServer.message
       setPlayers(newPlayers);
-      console.log(newPlayers);
     }
   };
 

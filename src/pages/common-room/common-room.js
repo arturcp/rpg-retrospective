@@ -39,7 +39,9 @@ class CommonRoom extends Component {
     userID: null,
     showQuiz: true,
     quiz: {
+      answers: [],
       currentParticipantIndex: 0,
+      completed: false,
       participants: [
         {
           playerName: 'Fulano',
@@ -92,7 +94,6 @@ class CommonRoom extends Component {
         sendMessage: this.sendMessage,
       });
 
-      console.log('New state after  ', dataFromServer, ': ', newState);
       this.setState(newState);
     };
   }
@@ -123,13 +124,9 @@ class CommonRoom extends Component {
     } else {
       const list = [];
 
-      console.log('Reading players from state:')
-      console.log(this.state.players);
-
       Object.keys(this.state.players).forEach((key) => {
         var player = this.state.players[key];
         if (player) {
-          console.log(player.character.name, ' player.position: ', player.position);
           list.push(
             <PlayerList
               player={player}
@@ -144,7 +141,7 @@ class CommonRoom extends Component {
     }
   }
 
-  onNextQuizHandler = () => {
+  onNextQuizHandler = (lastQuestion) => {
     const { quiz } = this.state;
 
     const clearOptions = () => {
@@ -156,20 +153,29 @@ class CommonRoom extends Component {
 
     const answer = document.querySelector('[data-quiz-option]:checked');
     if (answer) {
-      if (quiz.currentParticipantIndex < quiz.participants.length - 1) {
-        console.log('entrou no if')
+      if (quiz.currentParticipantIndex < quiz.participants.length) {
         this.setState(prev => {
-          console.log(prev.quiz.currentParticipantIndex + 1);
+          const previousIndex = prev.quiz.currentParticipantIndex;
           clearOptions();
-          return {
+
+          const newState = {
+            ...this.state,
+            players: { ...this.state.players },
+            showQuiz: !lastQuestion,
             quiz: {
               ...this.state.quiz,
-              currentParticipantIndex: prev.quiz.currentParticipantIndex + 1
+              currentParticipantIndex: previousIndex + 1,
+              answers: [...prev.quiz.answers, {
+                answer: answer.value,
+                playerName: quiz.participants[previousIndex].playerName,
+              }],
+              completed: lastQuestion,
             }
           }
+
+          return newState;
         })
       }
-      console.log(answer.value);
     }
   };
 
@@ -177,6 +183,13 @@ class CommonRoom extends Component {
     const { showModal, loading, modalStage, showQuiz, quiz } = this.state;
     const { data, iceBreaker } = this.props;
     const { character } = data;
+
+    if (quiz.completed) {
+      console.log('Quiz completed:');
+      console.log(quiz.answers);
+
+      this.sendMessage('quiz-completed', quiz.answers)
+    }
 
     return (
       <div className="container">
@@ -231,10 +244,10 @@ class CommonRoom extends Component {
 
         {showQuiz && (
           <Modal
-            buttonText={ quiz.currentParticipantIndex === quiz.participants.lenght - 1 ? 'Send your guess' : 'Next' }
-            showButton={true}
+            showButton
+            buttonText={ quiz.currentParticipantIndex === quiz.participants.length - 1 ? 'Send' : 'Next' }
             title={'Quiz'}
-            onButtonClick={this.onNextQuizHandler}
+            onButtonClick={() => this.onNextQuizHandler(quiz.currentParticipantIndex === quiz.participants.length - 1)}
           >
             <Quiz quiz={quiz.participants[quiz.currentParticipantIndex]} />
           </Modal>

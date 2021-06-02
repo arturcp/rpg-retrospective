@@ -29,7 +29,6 @@ const SpeedTest = (props) => {
     setStage('filled');
   }
 
-  console.log(props.state);
   return (
     <>
       { stage === 'initial' && (

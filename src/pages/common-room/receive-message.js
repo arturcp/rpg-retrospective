@@ -11,10 +11,8 @@ export const receiveMessage = (data, options) => {
     case 'player-moved':
       return movePlayer(data, options);
     case 'player-disconnected':
-      console.log('player disconnected');
       return redrawAllPlayers(data, options);
     case 'you-were-disconnected':
-      console.log('disconnecting one player');
       alert('You were disconnected');
       return { players: [], showModal: false, connected: false };
     default:
@@ -42,7 +40,6 @@ const requestGameConnection = (data, options) => {
 };
 
 const redrawAllPlayers = (data, options) => {
-  console.log('Updating state\'s players with ', data.message);
   return { players: data.message };
 }
 
