@@ -38,13 +38,26 @@ class CommonRoom extends Component {
     players: {},
     userID: null,
     showQuiz: true,
-    currentQuiz: {
-      playerName: 'Fulano',
-      theme: 'TV show',
-      option1: 'Friends',
-      option2: 'Breaking Bad',
-      option3: 'Vikings',
-      option4: 'Daredevil'
+    quiz: {
+      currentParticipantIndex: 0,
+      participants: [
+        {
+          playerName: 'Fulano',
+          theme: 'TV show',
+          option1: 'Friends',
+          option2: 'Breaking Bad',
+          option3: 'Vikings',
+          option4: 'Daredevil'
+        },
+        {
+          playerName: 'Ciclano',
+          theme: 'Color',
+          option1: 'Black',
+          option2: 'Blue',
+          option3: 'Beige',
+          option4: 'Green'
+        },
+      ],
     }
   }
 
@@ -131,8 +144,37 @@ class CommonRoom extends Component {
     }
   }
 
+  onNextQuizHandler = () => {
+    const { quiz } = this.state;
+
+    const clearOptions = () => {
+      const options = document.querySelectorAll('[data-quiz-option]');
+      for (let index = 0; index < options.length; index++) {
+        options[index].checked = false;
+      }
+    }
+
+    const answer = document.querySelector('[data-quiz-option]:checked');
+    if (answer) {
+      if (quiz.currentParticipantIndex < quiz.participants.length - 1) {
+        console.log('entrou no if')
+        this.setState(prev => {
+          console.log(prev.quiz.currentParticipantIndex + 1);
+          clearOptions();
+          return {
+            quiz: {
+              ...this.state.quiz,
+              currentParticipantIndex: prev.quiz.currentParticipantIndex + 1
+            }
+          }
+        })
+      }
+      console.log(answer.value);
+    }
+  };
+
   render() {
-    const { showModal, loading, modalStage, showQuiz, currentQuiz } = this.state;
+    const { showModal, loading, modalStage, showQuiz, quiz } = this.state;
     const { data, iceBreaker } = this.props;
     const { character } = data;
 
@@ -189,17 +231,12 @@ class CommonRoom extends Component {
 
         {showQuiz && (
           <Modal
-            buttonText="Send your guess"
+            buttonText={ quiz.currentParticipantIndex === quiz.participants.lenght - 1 ? 'Send your guess' : 'Next' }
             showButton={true}
             title={'Quiz'}
-            onButtonClick={() => {
-              const answer = document.querySelector('[data-quiz-option]:checked');
-              if (answer) {
-                console.log(answer.value);
-              }
-            }}
+            onButtonClick={this.onNextQuizHandler}
           >
-            <Quiz quiz={currentQuiz} />
+            <Quiz quiz={quiz.participants[quiz.currentParticipantIndex]} />
           </Modal>
         )}
       </div>
