@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
 import Modal from '../../components/UI/Modal/Modal';
+import Quiz from './components/Quiz';
 import PlayerList from './components/PlayerList';
 import loadingImage from '../../images/loading.gif';
 import { receiveMessage } from './receive-message';
@@ -36,6 +37,15 @@ class CommonRoom extends Component {
     modalStage: 'initial',
     players: {},
     userID: null,
+    showQuiz: true,
+    currentQuiz: {
+      playerName: 'Fulano',
+      theme: 'TV show',
+      option1: 'Friends',
+      option2: 'Breaking Bad',
+      option3: 'Vikings',
+      option4: 'Daredevil'
+    }
   }
 
   themeRef = React.createRef();
@@ -122,7 +132,7 @@ class CommonRoom extends Component {
   }
 
   render() {
-    const { showModal, loading, modalStage } = this.state;
+    const { showModal, loading, modalStage, showQuiz, currentQuiz } = this.state;
     const { data, iceBreaker } = this.props;
     const { character } = data;
 
@@ -176,6 +186,22 @@ class CommonRoom extends Component {
         )}
 
         {!showModal && this.showPlayers()}
+
+        {showQuiz && (
+          <Modal
+            buttonText="Send your guess"
+            showButton={true}
+            title={'Quiz'}
+            onButtonClick={() => {
+              const answer = document.querySelector('[data-quiz-option]:checked');
+              if (answer) {
+                console.log(answer.value);
+              }
+            }}
+          >
+            <Quiz quiz={currentQuiz} />
+          </Modal>
+        )}
       </div>
     )
   }
