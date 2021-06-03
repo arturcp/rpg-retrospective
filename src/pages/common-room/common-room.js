@@ -37,11 +37,12 @@ class CommonRoom extends Component {
     modalStage: 'initial',
     players: {},
     userID: null,
-    showQuiz: true,
+    showQuiz: false,
     quiz: {
       answers: [],
       currentParticipantIndex: 0,
       completed: false,
+      answerSend: false,
       participants: [
         {
           playerName: 'Fulano',
@@ -123,12 +124,15 @@ class CommonRoom extends Component {
       return null;
     } else {
       const list = [];
+      let index = 0;
 
       Object.keys(this.state.players).forEach((key) => {
-        var player = this.state.players[key];
+        let player = this.state.players[key];
+        index += 1;
         if (player) {
           list.push(
             <PlayerList
+              key={`player-list-${index}`}
               player={player}
               userID={this.state.userID}
               sendMessage={this.sendMessage}
@@ -159,8 +163,6 @@ class CommonRoom extends Component {
           clearOptions();
 
           const newState = {
-            ...this.state,
-            players: { ...this.state.players },
             showQuiz: !lastQuestion,
             quiz: {
               ...this.state.quiz,
@@ -181,14 +183,17 @@ class CommonRoom extends Component {
 
   render() {
     const { showModal, loading, modalStage, showQuiz, quiz } = this.state;
-    const { data, iceBreaker } = this.props;
+    const { data, iceBreaker, userName } = this.props;
     const { character } = data;
 
-    if (quiz.completed) {
-      console.log('Quiz completed:');
-      console.log(quiz.answers);
-
-      this.sendMessage('quiz-completed', quiz.answers)
+    if (quiz.completed && !quiz.answerSend) {
+      this.setState({
+        quiz: {
+          ...this.state.quiz,
+          answerSend: true,
+        }
+      })
+      this.sendMessage('quiz-completed', { userName, answers: quiz.answers })
     }
 
     return (

@@ -14,21 +14,34 @@ const client = new W3CWebSocket('ws://127.0.0.1:8000');
 const Admin = () => {
   const [connected, setConnectedStatus] = useState(false);
   const [players, setPlayers] = useState([]);
+  const [quizAnswers, saveQuizAnswer] = useState([]);
 
   client.onopen = () => {
     setConnectedStatus(true);
   };
 
   client.onmessage = (message) => {
+    console.log('message received');
     const dataFromServer = JSON.parse(message.data);
     if (dataFromServer.type === 'client-connected') {
       client.send(JSON.stringify({ type: 'players-list-request' }));
     }
 
     if (dataFromServer.type === 'players-list' || dataFromServer.type === 'player-disconnected') {
-      const newPlayers = dataFromServer.message
+      const newPlayers = dataFromServer.message;
       setPlayers(newPlayers);
     }
+
+    if (dataFromServer.type === 'quiz-answered') {
+      saveQuizAnswer([...quizAnswers, dataFromServer.message]);
+    }
+  };
+
+  const startQuiz = () => {
+    client.send(JSON.stringify({
+      type: 'quiz-started',
+      value: {}
+    }));
   };
 
   // Example:
@@ -42,8 +55,11 @@ const Admin = () => {
   //}
   const showPlayers = () => {
     const list = [];
+    let index = 0;
     Object.keys(players).forEach((key) => {
-      var player = players[key];
+      const player = players[key];
+      index += 1;
+
       if (player) {
         const character = characters[player.character.type];
         const onClickHandler = () => {
@@ -55,8 +71,9 @@ const Admin = () => {
             }
           }));
         }
+
         list.push(
-          <div key={key} className="player-box">
+          <div key={`player-${index}`} className="player-box">
             <Actor
               image={character.avatar}
               data={CONSTANTS.SPRITE_DIMENSIONS}
@@ -76,19 +93,40 @@ const Admin = () => {
     });
 
     return list;
-  }
+  };
+
+  const showQuizAnswers = () => {
+    return (
+      <div>
+        <h2>{quizAnswers.userName}</h2>
+        {quizAnswers.map((quizAnswer, index) => (
+          <p key={`answer-${index}`}>{quizAnswer.answer}</p>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="admin">
       <Header />
+
       <h1>Admin</h1>
+
       <h2>
         <span className={connected ? 'green-semaphore semaphore' : 'red-semaphore semaphore'}>
         </span>
         Connected
       </h2>
 
+      <Button type="default" size="large" onClick={startQuiz}>
+        Start Quiz
+      </Button>
+
+      <hr />
+
+
       {showPlayers()}
+      {showQuizAnswers()}
     </div>
   )
 };

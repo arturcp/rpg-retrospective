@@ -1,4 +1,5 @@
 export const receiveMessage = (data, options) => {
+  console.log('message received: ', data.type);
   switch (data.type) {
     case 'client-connected':
       return requestGameConnection(data, options);
@@ -15,6 +16,8 @@ export const receiveMessage = (data, options) => {
     case 'you-were-disconnected':
       alert('You were disconnected');
       return { players: [], showModal: false, connected: false };
+    case 'quiz-started':
+      return { showQuiz: true }
     default:
       return {};
   }
