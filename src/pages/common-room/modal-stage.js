@@ -45,7 +45,7 @@ export const handleModalStage = (modalStage, options) => {
         themeOption4Input.focus();
       } else {
         return {
-          modalStage: 'instructions',
+          modalStage: 'answer',
           themeOption1: themeOption1Input.value.trim(),
           themeOption2: themeOption2Input.value.trim(),
           themeOption3: themeOption3Input.value.trim(),
@@ -53,6 +53,8 @@ export const handleModalStage = (modalStage, options) => {
         };
       }
       break;
+    case 'answer':
+      return { modalStage: 'instructions' };
     case 'instructions':
       return { modalStage: '', showModal: false };
     default:

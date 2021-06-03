@@ -9,7 +9,7 @@ import PlayerList from './components/PlayerList';
 import loadingImage from '../../images/loading.gif';
 import { receiveMessage } from './receive-message';
 import { handleModalStage } from './modal-stage';
-import { Input } from 'antd';
+import { Input, Select } from 'antd';
 
 import './styles.scss';
 
@@ -182,9 +182,21 @@ class CommonRoom extends Component {
   };
 
   render() {
-    const { showModal, loading, modalStage, showQuiz, quiz } = this.state;
+    const {
+      showModal,
+      loading,
+      modalStage,
+      showQuiz,
+      quiz,
+      theme,
+      themeOption1,
+      themeOption2,
+      themeOption3,
+      themeOption4,
+    } = this.state;
     const { data, iceBreaker, userName } = this.props;
     const { character } = data;
+    const { Option } = Select;
 
     if (quiz.completed && !quiz.answerSend) {
       this.setState({
@@ -194,6 +206,12 @@ class CommonRoom extends Component {
         }
       })
       this.sendMessage('quiz-completed', { userName, answers: quiz.answers })
+    }
+
+    const onQuizAnswerChangeHandler = (value) => {
+      this.setState({
+        quizAnswer: value,
+      });
     }
 
     return (
@@ -231,6 +249,19 @@ class CommonRoom extends Component {
                     <Input type="text" className="theme-item" placeholder="Theme" ref={this.themeOption3Ref} />
                     <Input type="text" className="theme-item" placeholder="Theme" ref={this.themeOption4Ref} />
                   </>
+                )}
+
+                {modalStage === 'answer' && (
+                  <>
+                    <p>Which {theme} is your favorite?</p>
+                    <Select defaultValue={themeOption1} style={{ width: 120 }} onChange={onQuizAnswerChangeHandler}>
+                      <Option value={themeOption1}>{themeOption1}</Option>
+                      <Option value={themeOption2}>{themeOption2}</Option>
+                      <Option value={themeOption3}>{themeOption3}</Option>
+                      <Option value={themeOption4}>{themeOption4}</Option>
+                    </Select>
+                  </>
+
                 )}
 
                 {modalStage === 'instructions' && (
