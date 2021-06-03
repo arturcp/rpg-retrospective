@@ -22,7 +22,6 @@ const Admin = () => {
 
   client.onmessage = (message) => {
     const dataFromServer = JSON.parse(message.data);
-    console.log('message received: ', dataFromServer.type);
     if (dataFromServer.type === 'client-connected') {
       client.send(JSON.stringify({ type: 'players-list-request' }));
     }

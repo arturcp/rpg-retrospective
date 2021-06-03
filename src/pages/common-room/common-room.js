@@ -43,24 +43,25 @@ class CommonRoom extends Component {
       currentParticipantIndex: 0,
       completed: false,
       answerSend: false,
-      participants: [
-        {
-          playerName: 'Fulano',
-          theme: 'TV show',
-          option1: 'Friends',
-          option2: 'Breaking Bad',
-          option3: 'Vikings',
-          option4: 'Daredevil'
-        },
-        {
-          playerName: 'Ciclano',
-          theme: 'Color',
-          option1: 'Black',
-          option2: 'Blue',
-          option3: 'Beige',
-          option4: 'Green'
-        },
-      ],
+      participants: [],
+      // participants: [
+      //   {
+      //     playerName: 'Fulano',
+      //     theme: 'TV show',
+      //     option1: 'Friends',
+      //     option2: 'Breaking Bad',
+      //     option3: 'Vikings',
+      //     option4: 'Daredevil'
+      //   },
+      //   {
+      //     playerName: 'Ciclano',
+      //     theme: 'Color',
+      //     option1: 'Black',
+      //     option2: 'Blue',
+      //     option3: 'Beige',
+      //     option4: 'Green'
+      //   },
+      // ],
     }
   }
 
@@ -73,6 +74,7 @@ class CommonRoom extends Component {
   client = new W3CWebSocket('ws://127.0.0.1:8000');
 
   componentDidMount() {
+    const { quiz } = this.state;
     const { data, userName } = this.props;
     const { character } = data;
 
@@ -93,6 +95,7 @@ class CommonRoom extends Component {
         characterType: data.type,
         players: this.state.players,
         sendMessage: this.sendMessage,
+        quiz
       });
 
       this.setState(newState);
@@ -133,10 +136,10 @@ class CommonRoom extends Component {
           userName,
           characterName: character.name,
           theme,
-          themeOption1,
-          themeOption2,
-          themeOption3,
-          themeOption4,
+          option1: themeOption1,
+          option2: themeOption2,
+          option3: themeOption3,
+          option4: themeOption4,
           quizAnswer,
         });
       }
