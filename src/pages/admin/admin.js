@@ -14,7 +14,7 @@ const client = new W3CWebSocket('ws://127.0.0.1:8000');
 const Admin = () => {
   const [connected, setConnectedStatus] = useState(false);
   const [players, setPlayers] = useState([]);
-  const [quizAnswers, saveQuizAnswer] = useState([]);
+  const [quizAnswers, saveQuizAnswer] = useState({});
 
   client.onopen = () => {
     setConnectedStatus(true);
@@ -33,7 +33,14 @@ const Admin = () => {
     }
 
     if (dataFromServer.type === 'quiz-answered') {
-      saveQuizAnswer([...quizAnswers, dataFromServer.message]);
+      const { userName, answers } = dataFromServer.message;
+      const newState = { ...quizAnswers }
+      if (!newState[userName]) {
+        newState[userName] = answers;
+      }
+      console.log('quiz answered: ', newState);
+
+      saveQuizAnswer(newState);
     }
   };
 
@@ -62,7 +69,11 @@ const Admin = () => {
 
       if (player) {
         const character = characters[player.character.type];
-        const onClickHandler = () => {
+        const onDisconnectHandler = () => {
+          const newQuizAnswers = { ...quizAnswers }
+          newQuizAnswers[player.userName] = null;
+          saveQuizAnswer(newQuizAnswers);
+
           client.send(JSON.stringify({
             type: 'disconnect-player',
             value: {
@@ -84,7 +95,7 @@ const Admin = () => {
             <br /><br /><br />
             <span><b>User:</b> {player.userName}</span><br />
             <span><b>Character:</b> {player.character.name}</span><br /><br />
-            <Button type="default" size="large" onClick={onClickHandler}>
+            <Button type="default" size="large" onClick={onDisconnectHandler}>
               Disconnect
             </Button>
           </div>
@@ -96,12 +107,24 @@ const Admin = () => {
   };
 
   const showQuizAnswers = () => {
+    const list = [];
+    let index = 0;
+    Object.keys(quizAnswers).forEach((player) => {
+      // const answer = quizAnswers[player];
+      index += 1;
+
+      list.push(
+        <div key={`quiz-answer-${index}`} className="quiz-answer-card">
+          <h2>{player}</h2>
+          <b>Points: </b> 10
+        </div>
+      )
+    });
+
     return (
       <div>
         <h2>{quizAnswers.userName}</h2>
-        {quizAnswers.map((quizAnswer, index) => (
-          <p key={`answer-${index}`}>{quizAnswer.answer}</p>
-        ))}
+        {list}
       </div>
     );
   };
@@ -124,9 +147,14 @@ const Admin = () => {
 
       <hr />
 
+      <div className="players-container">
+        {showPlayers()}
+      </div>
 
-      {showPlayers()}
-      {showQuizAnswers()}
+      <div className="quiz-answers-container">
+        <h2>Pontuação do quiz</h2>
+        {showQuizAnswers()}
+      </div>
     </div>
   )
 };
