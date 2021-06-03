@@ -13,7 +13,7 @@ const client = new W3CWebSocket('ws://127.0.0.1:8000');
 
 const Admin = () => {
   const [connected, setConnectedStatus] = useState(false);
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState({});
   const [quizAnswers, saveQuizAnswer] = useState({});
 
   client.onopen = () => {
@@ -21,8 +21,8 @@ const Admin = () => {
   };
 
   client.onmessage = (message) => {
-    console.log('message received');
     const dataFromServer = JSON.parse(message.data);
+    console.log('message received: ', dataFromServer.type);
     if (dataFromServer.type === 'client-connected') {
       client.send(JSON.stringify({ type: 'players-list-request' }));
     }
@@ -30,6 +30,30 @@ const Admin = () => {
     if (dataFromServer.type === 'players-list' || dataFromServer.type === 'player-disconnected') {
       const newPlayers = dataFromServer.message;
       setPlayers(newPlayers);
+    }
+
+    if (dataFromServer.type === 'quiz-ready') {
+      const {
+        characterName,
+        theme,
+        themeOption1,
+        themeOption2,
+        themeOption3,
+        themeOption4,
+        quizAnswer,
+      }= dataFromServer.message;
+
+      const newPlayerList = { ...players }
+      newPlayerList[characterName].quiz = {
+        theme,
+        option1: themeOption1,
+        option2: themeOption2,
+        option3: themeOption3,
+        option4: themeOption4,
+        answer: quizAnswer
+      }
+
+      setPlayers(newPlayerList);
     }
 
     if (dataFromServer.type === 'quiz-answered') {
@@ -83,6 +107,7 @@ const Admin = () => {
           }));
         }
 
+        console.log(player.quiz);
         list.push(
           <div key={`player-${index}`} className="player-box">
             <Actor
@@ -94,7 +119,8 @@ const Admin = () => {
             />
             <br /><br /><br />
             <span><b>User:</b> {player.userName}</span><br />
-            <span><b>Character:</b> {player.character.name}</span><br /><br />
+            <span><b>Character:</b> {player.character.name}</span><br />
+            <span><b>Quiz:</b> {player.quiz && player.quiz.answer ? 'ready' : 'pending'}</span><br /><br />
             <Button type="default" size="large" onClick={onDisconnectHandler}>
               Disconnect
             </Button>
@@ -152,7 +178,9 @@ const Admin = () => {
       </div>
 
       <div className="quiz-answers-container">
-        <h2>Pontuação do quiz</h2>
+        {Object.keys(quizAnswers).length > 0 && (
+          <h2>Pontuação do quiz</h2>
+        )}
         {showQuizAnswers()}
       </div>
     </div>

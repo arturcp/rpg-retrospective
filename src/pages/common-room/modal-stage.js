@@ -46,6 +46,7 @@ export const handleModalStage = (modalStage, options) => {
       } else {
         return {
           modalStage: 'answer',
+          quizAnswer: themeOption1Input.value.trim(),
           themeOption1: themeOption1Input.value.trim(),
           themeOption2: themeOption2Input.value.trim(),
           themeOption3: themeOption3Input.value.trim(),
@@ -56,7 +57,7 @@ export const handleModalStage = (modalStage, options) => {
     case 'answer':
       return { modalStage: 'instructions' };
     case 'instructions':
-      return { modalStage: '', showModal: false };
+      return { modalStage: 'finished', showModal: false };
     default:
       return {};
   }

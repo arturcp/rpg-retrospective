@@ -104,18 +104,44 @@ class CommonRoom extends Component {
   }
 
   onNextHandler = () => {
-    const { showModal, modalStage } = this.state;
+    const {
+      showModal,
+      modalStage,
+      theme,
+      themeOption1,
+      themeOption2,
+      themeOption3,
+      themeOption4,
+      quizAnswer,
+    } = this.state;
+
+    const { userName, data } = this.props;
+    const { character } = data;
+
 
     if (showModal) {
-      this.setState(
-        handleModalStage(modalStage, {
-          themeRef: this.themeRef,
-          themeOption1Ref: this.themeOption1Ref,
-          themeOption2Ref: this.themeOption2Ref,
-          themeOption3Ref: this.themeOption3Ref,
-          themeOption4Ref: this.themeOption4Ref,
-        })
-      );
+      const newState = handleModalStage(modalStage, {
+        themeRef: this.themeRef,
+        themeOption1Ref: this.themeOption1Ref,
+        themeOption2Ref: this.themeOption2Ref,
+        themeOption3Ref: this.themeOption3Ref,
+        themeOption4Ref: this.themeOption4Ref,
+      });
+
+      if (newState && newState.modalStage === 'finished') {
+        this.sendMessage('quiz-ready', {
+          userName,
+          characterName: character.name,
+          theme,
+          themeOption1,
+          themeOption2,
+          themeOption3,
+          themeOption4,
+          quizAnswer,
+        });
+      }
+
+      this.setState(newState);
     }
   }
 
