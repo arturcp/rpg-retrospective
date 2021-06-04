@@ -56,7 +56,7 @@ class CommonRoom extends Component {
   client = new W3CWebSocket('ws://127.0.0.1:8000');
 
   componentDidMount() {
-    const { quiz, userID } = this.state;
+    const { quiz } = this.state;
     const { data, userName } = this.props;
     const { character } = data;
 
@@ -70,6 +70,7 @@ class CommonRoom extends Component {
 
     this.client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
+      const { userID } = this.state;
 
       const newState = receiveMessage(dataFromServer, {
         userName,

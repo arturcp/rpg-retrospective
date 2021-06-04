@@ -20,21 +20,24 @@ export const receiveMessage = (data, options) => {
 
       Object.keys(data.message).forEach((characterName, index) => {
         const character = data.message[characterName];
-        const { theme, option1, option2, option3, option4 } = character.quiz
 
-        // The player should not see his/her theme and options
-        // during the quiz.
-        if (character.UserID !== options.userID) {
-          participants.push({
-            playerName: characterName,
-            theme,
-            option1,
-            option2,
-            option3,
-            option4,
-          })
+        if (character && character.quiz) {
+          const { theme, option1, option2, option3, option4 } = character.quiz
+
+          // The player should not see his/her theme and options
+          // during the quiz.
+          if (character.userID !== options.userID) {
+            participants.push({
+              playerName: options.userName,
+              characterName: characterName,
+              theme,
+              option1,
+              option2,
+              option3,
+              option4,
+            })
+          }
         }
-
       });
       return { showQuiz: true, quiz: { ...options.quiz, participants } }
     default:

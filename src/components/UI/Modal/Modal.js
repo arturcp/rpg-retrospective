@@ -10,7 +10,7 @@ import './styles.scss';
 //   buttonText="Close"
 //   showButton
 //   title="My first modal"
-//   onButtonClick={() => { console.log('clicked'); }}
+//   onButtonClick={() => { }}
 //   >
 //   Here comes a text
 // </Modal>

@@ -12,7 +12,7 @@ const PlayerList = (props) => {
 
   return (
     <div key={player.character.name}>
-      {currentPlayer && (
+      {currentPlayer && character && (
         <Player
           showLifeBar
           showName
@@ -40,7 +40,7 @@ const PlayerList = (props) => {
         />
       )}
 
-      {!currentPlayer && (
+      {!currentPlayer && character && (
         <Actor
           showLifeBar
           showName

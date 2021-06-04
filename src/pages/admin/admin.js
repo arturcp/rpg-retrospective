@@ -106,25 +106,26 @@ const Admin = () => {
           }));
         }
 
-        console.log(player.quiz);
-        list.push(
-          <div key={`player-${index}`} className="player-box">
-            <Actor
-              image={character.avatar}
-              data={CONSTANTS.SPRITE_DIMENSIONS}
-              step="1"
-              direction="0"
-              position={{ x: '95px', y: '15px' }}
-            />
-            <br /><br /><br />
-            <span><b>User:</b> {player.userName}</span><br />
-            <span><b>Character:</b> {player.character.name}</span><br />
-            <span><b>Quiz:</b> {player.quiz && player.quiz.answer ? 'ready' : 'pending'}</span><br /><br />
-            <Button type="default" size="large" onClick={onDisconnectHandler}>
-              Disconnect
-            </Button>
-          </div>
-        );
+        if (character) {
+          list.push(
+            <div key={`player-${index}`} className="player-box">
+              <Actor
+                image={character.avatar}
+                data={CONSTANTS.SPRITE_DIMENSIONS}
+                step="1"
+                direction="0"
+                position={{ x: '95px', y: '15px' }}
+              />
+              <br /><br /><br />
+              <span><b>User:</b> {player.userName}</span><br />
+              <span><b>Character:</b> {player.character.name}</span><br />
+              <span><b>Quiz:</b> {player.quiz && player.quiz.answer ? 'ready' : 'pending'}</span><br /><br />
+              <Button type="default" size="large" onClick={onDisconnectHandler}>
+                Disconnect
+              </Button>
+            </div>
+          );
+        }
       }
     });
 
