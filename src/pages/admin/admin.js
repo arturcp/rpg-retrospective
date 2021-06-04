@@ -114,7 +114,7 @@ const Admin = () => {
               data={CONSTANTS.SPRITE_DIMENSIONS}
               step="1"
               direction="0"
-              position={{ x: '60px', y: '15px' }}
+              position={{ x: '95px', y: '15px' }}
             />
             <br /><br /><br />
             <span><b>User:</b> {player.userName}</span><br />

@@ -44,24 +44,6 @@ class CommonRoom extends Component {
       completed: false,
       answerSend: false,
       participants: [],
-      // participants: [
-      //   {
-      //     playerName: 'Fulano',
-      //     theme: 'TV show',
-      //     option1: 'Friends',
-      //     option2: 'Breaking Bad',
-      //     option3: 'Vikings',
-      //     option4: 'Daredevil'
-      //   },
-      //   {
-      //     playerName: 'Ciclano',
-      //     theme: 'Color',
-      //     option1: 'Black',
-      //     option2: 'Blue',
-      //     option3: 'Beige',
-      //     option4: 'Green'
-      //   },
-      // ],
     }
   }
 
@@ -74,7 +56,7 @@ class CommonRoom extends Component {
   client = new W3CWebSocket('ws://127.0.0.1:8000');
 
   componentDidMount() {
-    const { quiz } = this.state;
+    const { quiz, userID } = this.state;
     const { data, userName } = this.props;
     const { character } = data;
 
@@ -95,7 +77,8 @@ class CommonRoom extends Component {
         characterType: data.type,
         players: this.state.players,
         sendMessage: this.sendMessage,
-        quiz
+        quiz,
+        userID,
       });
 
       this.setState(newState);

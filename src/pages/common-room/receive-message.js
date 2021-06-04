@@ -16,7 +16,27 @@ export const receiveMessage = (data, options) => {
       alert('You were disconnected');
       return { players: [], showModal: false, connected: false };
     case 'quiz-started':
-      return { showQuiz: true, quiz: { ...options.quiz, participants: data.message } }
+      const participants = [];
+
+      Object.keys(data.message).forEach((characterName, index) => {
+        const character = data.message[characterName];
+        const { theme, option1, option2, option3, option4 } = character.quiz
+
+        // The player should not see his/her theme and options
+        // during the quiz.
+        if (character.UserID !== options.userID) {
+          participants.push({
+            playerName: characterName,
+            theme,
+            option1,
+            option2,
+            option3,
+            option4,
+          })
+        }
+
+      });
+      return { showQuiz: true, quiz: { ...options.quiz, participants } }
     default:
       return {};
   }
