@@ -10,11 +10,9 @@ const PlayerList = (props) => {
   const character = characters[player.character.type];
   const currentPlayer = player.userID === userID;
 
-  console.log(`Drawing ${player.character.name} at ${player.position.x}, ${player.position.y} (${player.direction})`)
-
   return (
     <div key={player.character.name}>
-      {currentPlayer && (
+      {currentPlayer && character && (
         <Player
           showLifeBar
           showName
@@ -42,7 +40,7 @@ const PlayerList = (props) => {
         />
       )}
 
-      {!currentPlayer && (
+      {!currentPlayer && character && (
         <Actor
           showLifeBar
           showName

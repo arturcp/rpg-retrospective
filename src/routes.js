@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SpeedTest from './pages/speed-test/speed-test';
 import CommonRoom from './pages/common-room/common-room';
 import Admin from './pages/admin/admin';
+import QuizResults from './pages/quiz-results/quiz-results';
 
 const Routes = () => (
   <BrowserRouter>
@@ -16,6 +17,7 @@ const Routes = () => (
       <Route exact path="/" component={SpeedTest} />
       <Route exact path="/admin" component={Admin} />
       <Route exact path="/common-room" component={CommonRoom} />
+      <Route exact path="/quiz-results" render={(props) => <QuizResults {...props} /> } />
     </Switch>
   </BrowserRouter>
 );

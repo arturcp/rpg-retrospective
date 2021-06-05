@@ -11,12 +11,37 @@ export const receiveMessage = (data, options) => {
     case 'player-moved':
       return movePlayer(data, options);
     case 'player-disconnected':
-      console.log('player disconnected');
       return redrawAllPlayers(data, options);
     case 'you-were-disconnected':
-      console.log('disconnecting one player');
       alert('You were disconnected');
       return { players: [], showModal: false, connected: false };
+    case 'quiz-started':
+      const participants = [];
+
+      Object.keys(data.message).forEach((characterName, index) => {
+        const character = data.message[characterName];
+
+        if (character && character.quiz) {
+          const { theme, option1, option2, option3, option4 } = character.quiz
+
+          // The player should not see his/her theme and options
+          // during the quiz.
+          if (character.userID !== options.userID) {
+            participants.push({
+              playerName: options.userName,
+              characterName: characterName,
+              theme,
+              option1,
+              option2,
+              option3,
+              option4,
+            })
+          }
+        }
+      });
+      return { showQuiz: true, quiz: { ...options.quiz, participants } }
+    case 'quiz-results':
+      return { quizResults: data.message.value.players, quizResultPlayers: data.message.playersList };
     default:
       return {};
   }
@@ -42,7 +67,6 @@ const requestGameConnection = (data, options) => {
 };
 
 const redrawAllPlayers = (data, options) => {
-  console.log('Updating state\'s players with ', data.message);
   return { players: data.message };
 }
 

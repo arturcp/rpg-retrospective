@@ -1,7 +1,7 @@
 .modal-container {
   position: absolute;
   width: calc(40vw);
-  height: calc(50vh);
+  min-height: calc(50vh);
   top: 25vh;
   left: 30vw;
   z-index: 1000;

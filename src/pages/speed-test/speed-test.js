@@ -22,14 +22,14 @@ const SpeedTest = (props) => {
       onCharacterNameSaved,
     } = props;
 
-    onUserNameSaved(names[nameIndex]);
+    const suffix = Date.now();
+    onUserNameSaved(names[nameIndex] + ' ' + suffix);
     onSelectCharacterHandler(types[typeIndex]);
-    onCharacterNameSaved(characterNames[characterNameIndex]);
+    onCharacterNameSaved(characterNames[characterNameIndex] + ' ' + suffix);
 
     setStage('filled');
   }
 
-  console.log(props.state);
   return (
     <>
       { stage === 'initial' && (
