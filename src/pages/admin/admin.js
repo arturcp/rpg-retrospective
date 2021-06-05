@@ -61,18 +61,36 @@ const Admin = () => {
       if (!newState[userName]) {
         newState[userName] = answers;
       }
-      console.log('quiz answered: ', newState);
 
       saveQuizAnswer(newState);
     }
   };
 
   const startQuiz = () => {
+    document.querySelector('[data-start-quiz]').classList.add('hide');
     client.send(JSON.stringify({
       type: 'quiz-started',
       value: {}
     }));
   };
+
+  const countAnsweredQuizzes = () => {
+    let answeredQuizzes = 0;
+
+    Object.keys(players).forEach((key) => {
+      const player = players[key];
+
+      if (player) {
+        const character = characters[player.character.type];
+        if (character && quizAnswers[player.userName]) {
+          answeredQuizzes++;
+        }
+      }
+    });
+
+    console.log('I counted ', answeredQuizzes, ' quizzes answered');
+    return answeredQuizzes;
+  }
 
   // Example:
   // {
@@ -82,6 +100,7 @@ const Admin = () => {
   //   step: 1
   //   userID: "9182493a-1b54"
   //   userName: "Kátia"
+  //   quiz: { "theme": "TV Shows", "option1": "", ... }
   //}
   const showPlayers = () => {
     const list = [];
@@ -107,6 +126,15 @@ const Admin = () => {
         }
 
         if (character) {
+          let quizState = 'pending';
+
+          if (quizAnswers[player.userName]) {
+            quizState = 'quiz answered';
+          } else if (player.quiz && player.quiz.answer) {
+            quizState = 'theme chosen';
+          }
+
+
           list.push(
             <div key={`player-${index}`} className="player-box">
               <Actor
@@ -119,7 +147,7 @@ const Admin = () => {
               <br /><br /><br />
               <span><b>User:</b> {player.userName}</span><br />
               <span><b>Character:</b> {player.character.name}</span><br />
-              <span><b>Quiz:</b> {player.quiz && player.quiz.answer ? 'ready' : 'pending'}</span><br /><br />
+              <span><b>Quiz:</b> {quizState}</span><br /><br />
               <Button type="default" size="large" onClick={onDisconnectHandler}>
                 Disconnect
               </Button>
@@ -136,7 +164,6 @@ const Admin = () => {
     const list = [];
     let index = 0;
     Object.keys(quizAnswers).forEach((player) => {
-      // const answer = quizAnswers[player];
       index += 1;
 
       list.push(
@@ -155,6 +182,11 @@ const Admin = () => {
     );
   };
 
+  const answeredQuizzesCounter = countAnsweredQuizzes();
+  const playersToShow = showPlayers();
+
+  console.log(playersToShow.length);
+
   return (
     <div className="admin">
       <Header />
@@ -167,14 +199,14 @@ const Admin = () => {
         Connected
       </h2>
 
-      <Button type="default" size="large" onClick={startQuiz}>
+      <Button type="default" size="large" onClick={startQuiz} data-start-quiz>
         Start Quiz
       </Button>
 
       <hr />
 
       <div className="players-container">
-        {showPlayers()}
+        {playersToShow}
       </div>
 
       <div className="quiz-answers-container">
@@ -182,6 +214,14 @@ const Admin = () => {
           <h2>Pontuação do quiz</h2>
         )}
         {showQuizAnswers()}
+
+        {answeredQuizzesCounter > 0 && answeredQuizzesCounter === playersToShow.length && (
+          <div className="show-quiz-results-container">
+            <Button type="primary" size="large" onClick={() => {}}>
+              Show quiz results
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   )

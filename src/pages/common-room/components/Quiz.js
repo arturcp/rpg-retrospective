@@ -4,8 +4,6 @@ import './quiz-styles.scss';
 const quiz = (props) => {
   const { quiz } = props;
 
-  console.log(quiz)
-
   return (
     <>
       {quiz && (

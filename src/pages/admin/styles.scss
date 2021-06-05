@@ -3,6 +3,10 @@
     color: #f1f1ed;
   }
 
+  .hide {
+    display: none;
+  }
+
   .semaphore {
     border-radius: 50%;
     width: 13px;
@@ -56,5 +60,12 @@
       padding: 0 5px;
       margin-bottom: 10px;
     }
+  }
+
+  .show-quiz-results-container {
+    display: inherit;
+    clear: both;
+    width: 100%;
+    margin-top: 45px;
   }
 }
