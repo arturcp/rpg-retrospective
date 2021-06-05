@@ -2,4 +2,43 @@
   h1 {
     color: #fff;
   }
+
+  label {
+    margin-left: 10px;
+  }
+
+  .player-card {
+    margin: 10px;
+    width: 300px;
+    background-color: white;
+    height: 300px;
+    float: left;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .call-to-action {
+    width: 100%;
+    clear: both;
+    font-size: 30px;
+    margin-top: 24px;
+    display: inline-block;
+
+    a, a:visited, a:focus {
+      transition: background-color 0.5s ease;
+      transition: color 0.5s ease;
+      color: #f1e76d;
+      border: 1px solid #ccc;
+      display: block;
+      width: 400px;
+      border-radius: 10px;
+      margin: 0 auto;
+      padding: 10px;
+
+      &:hover {
+        background-color: #f1e76d;
+        color: #000;
+      }
+    }
+  }
 }

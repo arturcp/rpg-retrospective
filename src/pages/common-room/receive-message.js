@@ -41,7 +41,7 @@ export const receiveMessage = (data, options) => {
       });
       return { showQuiz: true, quiz: { ...options.quiz, participants } }
     case 'quiz-results':
-      return { quizResults: data.message.players };
+      return { quizResults: data.message.value.players, quizResultPlayers: data.message.playersList };
     default:
       return {};
   }

@@ -53,6 +53,13 @@ class CommonRoom extends Component {
     //   {playerName: "Artur 1622899115505", points: 0}
     //]
     quizResults: [],
+
+    // This variable will hold the list of players from the
+    // server, containing all quiz options and answers.
+    //
+    // It will be used to show each player's choices and correct
+    // answer at the end.
+    quizResultPlayers: [],
   }
 
   themeRef = React.createRef();
@@ -215,6 +222,7 @@ class CommonRoom extends Component {
       themeOption3,
       themeOption4,
       quizResults,
+      quizResultPlayers,
     } = this.state;
     const { data, iceBreaker, userName } = this.props;
     const { character } = data;
@@ -241,7 +249,7 @@ class CommonRoom extends Component {
         {quizResults.length > 0 && (
           <Redirect to={{
               pathname: "quiz-results",
-              state: { quizResults }
+              state: { quizResults, quizResultPlayers }
             }}
           />
         )}
