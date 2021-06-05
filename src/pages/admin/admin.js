@@ -111,7 +111,6 @@ const Admin = () => {
       }
     });
 
-    console.log('I counted ', answeredQuizzes, ' quizzes answered');
     return answeredQuizzes;
   }
 
@@ -241,8 +240,6 @@ const Admin = () => {
 
   const answeredQuizzesCounter = countAnsweredQuizzes();
   const playersToShow = showPlayers();
-
-  console.log(playersToShow.length);
 
   return (
     <div className="admin">
