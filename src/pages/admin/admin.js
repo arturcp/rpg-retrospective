@@ -13,7 +13,30 @@ const client = new W3CWebSocket('ws://127.0.0.1:8000');
 
 const Admin = () => {
   const [connected, setConnectedStatus] = useState(false);
+
+  /* Players - Example:
+    {
+      'Ragnar': {
+        character: { name: "Legolas", type: "male-wizard"},
+        direction: 2,
+        position: { x: 175, y: 433 },
+        quiz: { theme: "1", option1: "2", option2: "3", option3: "4", option4: "5", answer: "4" },
+        step: 1,
+        userID: "3977a357-9d97",
+        userName: "Carlos"
+      }
+    }
+  */
   const [players, setPlayers] = useState({});
+
+  /* Quiz Answers Example:
+    {
+      'José': [
+        { answer: 'blue', characterName: 'Ragnar' },
+        { answer: '42', characterName: 'Floki' },
+      ]
+    }
+  */
   const [quizAnswers, saveQuizAnswer] = useState({});
 
   client.onopen = () => {
@@ -160,16 +183,31 @@ const Admin = () => {
     return list;
   };
 
+  const calculateQuizPoints = (playerName) => {
+    let points = 0;
+    quizAnswers[playerName].forEach((data) => {
+      const { answer, characterName: quizOwnerName } = data;
+
+      if (players[quizOwnerName]) {
+        const correctAnswer = players[quizOwnerName].quiz.answer;
+        if (answer === correctAnswer) {
+          points++;
+        }
+      }
+    });
+    return points;
+  }
+
   const showQuizAnswers = () => {
     const list = [];
     let index = 0;
-    Object.keys(quizAnswers).forEach((player) => {
+    Object.keys(quizAnswers).forEach((playerName) => {
       index += 1;
 
       list.push(
         <div key={`quiz-answer-${index}`} className="quiz-answer-card">
-          <h2>{player}</h2>
-          <b>Points: </b> 10
+          <h2>{playerName}</h2>
+          <b>Points: </b> {calculateQuizPoints(playerName)}
         </div>
       )
     });

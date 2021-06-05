@@ -182,7 +182,7 @@ class CommonRoom extends Component {
               currentParticipantIndex: previousIndex + 1,
               answers: [...prev.quiz.answers, {
                 answer: answer.value,
-                playerName: quiz.participants[previousIndex].playerName,
+                characterName: quiz.participants[previousIndex].characterName,
               }],
               completed: lastQuestion,
             }
