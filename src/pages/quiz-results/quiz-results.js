@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Divider, Tag } from 'antd';
+import { Table } from 'antd';
 import Header from '../../components/Header/Header';
 
 import './styles.scss';
