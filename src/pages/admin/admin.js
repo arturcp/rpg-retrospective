@@ -204,10 +204,12 @@ const Admin = () => {
     Object.keys(quizAnswers).forEach((playerName) => {
       index += 1;
 
+      const points = calculateQuizPoints(playerName);
+
       list.push(
-        <div key={`quiz-answer-${index}`} className="quiz-answer-card">
+        <div key={`quiz-answer-${index}`} className="quiz-answer-card" data-quiz-answer-player={playerName} data-quiz-answer-points={points}>
           <h2>{playerName}</h2>
-          <b>Points: </b> {calculateQuizPoints(playerName)}
+          <b>Points: </b> {points}
         </div>
       )
     });
@@ -219,6 +221,23 @@ const Admin = () => {
       </div>
     );
   };
+
+  const sendQuizResults = () => {
+    const elements = document.querySelectorAll('.quiz-answer-card');
+    const list = [];
+    elements.forEach(element => {
+      const playerName = element.getAttribute('data-quiz-answer-player');
+      const points = parseInt(element.getAttribute('data-quiz-answer-points'));
+      list.push({ playerName, points });
+    });
+
+    client.send(JSON.stringify({
+      type: 'quiz-results-ready',
+      value: {
+        players: list.sort((a,b) => (a.points > b.points) ? -1 : ((b.points > a.points) ? 1 : 0)),
+      }
+    }));
+  }
 
   const answeredQuizzesCounter = countAnsweredQuizzes();
   const playersToShow = showPlayers();
@@ -255,7 +274,7 @@ const Admin = () => {
 
         {answeredQuizzesCounter > 0 && answeredQuizzesCounter === playersToShow.length && (
           <div className="show-quiz-results-container">
-            <Button type="primary" size="large" onClick={() => {}}>
+            <Button type="primary" size="large" onClick={sendQuizResults}>
               Show quiz results
             </Button>
           </div>

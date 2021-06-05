@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
 import * as actionTypes from '../../store/actions';
 
 import Modal from '../../components/UI/Modal/Modal';
@@ -44,7 +45,14 @@ class CommonRoom extends Component {
       completed: false,
       answerSend: false,
       participants: [],
-    }
+    },
+
+
+    // [
+    //   {playerName: "Phoebe 1622899116591", points: 1},
+    //   {playerName: "Artur 1622899115505", points: 0}
+    //]
+    quizResults: [],
   }
 
   themeRef = React.createRef();
@@ -206,6 +214,7 @@ class CommonRoom extends Component {
       themeOption2,
       themeOption3,
       themeOption4,
+      quizResults,
     } = this.state;
     const { data, iceBreaker, userName } = this.props;
     const { character } = data;
@@ -229,6 +238,14 @@ class CommonRoom extends Component {
 
     return (
       <div className="container">
+        {quizResults.length > 0 && (
+          <Redirect to={{
+              pathname: "quiz-results",
+              state: { quizResults }
+            }}
+          />
+        )}
+
         {showModal && iceBreaker && !iceBreaker.option4 && (
           <Modal
             buttonText="Next"

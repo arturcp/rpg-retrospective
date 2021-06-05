@@ -40,6 +40,8 @@ export const receiveMessage = (data, options) => {
         }
       });
       return { showQuiz: true, quiz: { ...options.quiz, participants } }
+    case 'quiz-results':
+      return { quizResults: data.message.players };
     default:
       return {};
   }
