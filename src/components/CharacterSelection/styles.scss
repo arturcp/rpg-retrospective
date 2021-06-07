@@ -56,7 +56,7 @@
   height: 100px;
   position: relative;
 
-  background: url("../../images/scenarios/initial.png") no-repeat;
+  background-repeat: no-repeat;
   background-size: 600px 208px;
 
   .keyboard-hint-image {

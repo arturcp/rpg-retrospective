@@ -3,6 +3,8 @@ import Player from '../Sprites/Player';
 import { Button } from 'antd';
 import CONSTANTS from '../../domain/constants';
 
+import initialImage from '../../images/scenarios/initial.png';
+
 const characterDescription = (props) => {
   const { character, onSelectCharacter, characterType } = props;
 
@@ -14,7 +16,7 @@ const characterDescription = (props) => {
         {character.description.map((paragraph, index) => <div key={`description-${index}`} className="description-paragraph">{paragraph}</div>)}
       </div>
 
-      <div className="player-area">
+      <div className="player-area" style={{ background: `url(${initialImage})` }}>
         <Player
           image={character.avatar}
           data={CONSTANTS.SPRITE_DIMENSIONS}
