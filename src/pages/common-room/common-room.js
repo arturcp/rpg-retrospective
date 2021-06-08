@@ -72,11 +72,13 @@ class CommonRoom extends Component {
   client = new W3CWebSocket(process.env.REACT_APP_SERVER_URL);
 
   componentDidMount() {
-    console.log(`Connected to ${process.env.REACT_APP_SERVER_URL}`);
-
-    const { quiz } = this.state;
+    const { quiz, connected } = this.state;
     const { data, userName } = this.props;
     const { character } = data;
+
+    if (connected) {
+      console.log(`Connected to ${process.env.REACT_APP_SERVER_URL}`);
+    }
 
     setTimeout(() => {
       this.setState({ loading: false })
