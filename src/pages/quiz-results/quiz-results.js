@@ -72,7 +72,7 @@ const quizResults = (props) => {
         <br />
 
         <div className="call-to-action">
-          <a href={process.env.REACT_APP_MIRO_URL} target="_blank">Take me to the retrospective</a>
+          <a href={process.env.REACT_APP_MIRO_URL} target="_blank" rel="noreferrer">Take me to the retrospective</a>
         </div>
       </div>
     </>
