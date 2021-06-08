@@ -9,10 +9,9 @@ import CONSTANTS from '../../domain/constants';
 import 'antd/dist/antd.css';
 import './styles.scss'
 
-const client = new W3CWebSocket(process.env.REACT_APP_SERVER_URL);
-
 const Admin = () => {
   const [connected, setConnectedStatus] = useState(false);
+  const [client] = useState(new W3CWebSocket(process.env.REACT_APP_SERVER_URL))
 
   /* Players - Example:
     {
@@ -71,16 +70,19 @@ const Admin = () => {
       }= dataFromServer.message;
 
       const newPlayerList = { ...players }
-      newPlayerList[characterName].quiz = {
-        theme,
-        option1: themeOption1,
-        option2: themeOption2,
-        option3: themeOption3,
-        option4: themeOption4,
-        answer: quizAnswer
-      }
 
-      setPlayers(newPlayerList);
+      if (newPlayerList[characterName]) {
+        newPlayerList[characterName].quiz = {
+          theme,
+          option1: themeOption1,
+          option2: themeOption2,
+          option3: themeOption3,
+          option4: themeOption4,
+          answer: quizAnswer
+        }
+
+        setPlayers(newPlayerList);
+      }
     }
 
     if (dataFromServer.type === 'quiz-answered') {
