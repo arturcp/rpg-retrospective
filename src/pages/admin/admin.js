@@ -14,8 +14,6 @@ const client = new W3CWebSocket(process.env.REACT_APP_SERVER_URL);
 const Admin = () => {
   const [connected, setConnectedStatus] = useState(false);
 
-  console.log('Trying to connect...')
-
   /* Players - Example:
     {
       'Ragnar': {
@@ -191,16 +189,20 @@ const Admin = () => {
 
   const calculateQuizPoints = (playerName) => {
     let points = 0;
-    quizAnswers[playerName].forEach((data) => {
-      const { answer, characterName: quizOwnerName } = data;
 
-      if (players[quizOwnerName]) {
-        const correctAnswer = players[quizOwnerName].quiz.answer;
-        if (answer === correctAnswer) {
-          points++;
+    if (quizAnswers[playerName]) {
+      quizAnswers[playerName].forEach((data) => {
+        const { answer, characterName: quizOwnerName } = data;
+
+        if (players[quizOwnerName]) {
+          const correctAnswer = players[quizOwnerName].quiz.answer;
+          if (answer === correctAnswer) {
+            points++;
+          }
         }
-      }
-    });
+      });
+    }
+
     return points;
   }
 
