@@ -9,11 +9,12 @@ import CONSTANTS from '../../domain/constants';
 import 'antd/dist/antd.css';
 import './styles.scss'
 
+const client = new W3CWebSocket(process.env.REACT_APP_SERVER_URL);
+
 const Admin = () => {
   const [connected, setConnectedStatus] = useState(false);
 
   console.log('Trying to connect...')
-  const client = new W3CWebSocket(process.env.REACT_APP_SERVER_URL);
 
   /* Players - Example:
     {
