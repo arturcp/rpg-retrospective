@@ -101,7 +101,7 @@ class DialogBox extends Component {
     const { mode, currentText } = this.state;
 
     const hintText = window.outerWidth < 576
-      ? 'Tap to continue' : 'Press enter to continue';
+      ? 'Tap to continue' : 'Press enter to speed dialog';
 
     const regex = new RegExp(/<pause for=\d+>/g);
     const parsedText = currentText.split(regex).join(' ');
