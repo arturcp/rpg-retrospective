@@ -68,16 +68,14 @@ class CommonRoom extends Component {
   themeOption3Ref = React.createRef();
   themeOption4Ref = React.createRef();
 
-
-  client = new W3CWebSocket(process.env.REACT_APP_SERVER_URL);
-
   componentDidMount() {
-    const { quiz, connected } = this.state;
+    const { quiz } = this.state;
     const { data, userName } = this.props;
     const { character } = data;
 
-    if (connected) {
-      console.log(`Connected to ${process.env.REACT_APP_SERVER_URL}`);
+    if (!this.client) {
+      console.log('Trying to connect...')
+      this.client = new W3CWebSocket(process.env.REACT_APP_SERVER_URL);
     }
 
     setTimeout(() => {
@@ -85,7 +83,12 @@ class CommonRoom extends Component {
     }, 2000);
 
     this.client.onopen = () => {
+      console.log(`Connected to ${process.env.REACT_APP_SERVER_URL}`);
       this.setState({ connected: true })
+    };
+
+    this.client.onerror = () => {
+      console.log('Error trying to connect to server');
     };
 
     this.client.onmessage = (message) => {
@@ -104,6 +107,8 @@ class CommonRoom extends Component {
 
       this.setState(newState);
     };
+
+    console.log(this.client.readyState);
   }
 
   sendMessage = (type, value) => {

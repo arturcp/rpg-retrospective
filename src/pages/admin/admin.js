@@ -9,7 +9,7 @@ import CONSTANTS from '../../domain/constants';
 import 'antd/dist/antd.css';
 import './styles.scss'
 
-const client = new W3CWebSocket('ws://127.0.0.1:8000');
+const client = new W3CWebSocket(process.env.REACT_APP_SERVER_URL);
 
 const Admin = () => {
   const [connected, setConnectedStatus] = useState(false);
