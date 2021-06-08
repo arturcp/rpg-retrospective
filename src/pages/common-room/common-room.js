@@ -68,9 +68,12 @@ class CommonRoom extends Component {
   themeOption3Ref = React.createRef();
   themeOption4Ref = React.createRef();
 
-  client = new W3CWebSocket('ws://127.0.0.1:8000');
+
+  client = new W3CWebSocket(process.env.REACT_APP_SERVER_URL);
 
   componentDidMount() {
+    console.log(`Connected to ${process.env.REACT_APP_SERVER_URL}`);
+
     const { quiz } = this.state;
     const { data, userName } = this.props;
     const { character } = data;

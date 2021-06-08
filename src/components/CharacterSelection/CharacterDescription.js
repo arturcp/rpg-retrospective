@@ -16,7 +16,7 @@ const characterDescription = (props) => {
         {character.description.map((paragraph, index) => <div key={`description-${index}`} className="description-paragraph">{paragraph}</div>)}
       </div>
 
-      <div className="player-area" style={{ background: `url(${initialImage})` }}>
+      <div className="player-area" style={{ background: `url(${initialImage})`, backgroundSize: '600px 208px' }}>
         <Player
           image={character.avatar}
           data={CONSTANTS.SPRITE_DIMENSIONS}

@@ -7,7 +7,8 @@ import GlitchClip from 'react-glitch-effect/core/GlitchClip';
 const BreakingTheDoor = (props) => {
   useEffect(() => {
     setTimeout(() => props.onSceneEnd(), 4000);
-  }, [props]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { character } = props;
 
