@@ -37,6 +37,11 @@ const PlayerList = (props) => {
               character: player.character
             })
           }}
+          movementsRestrictions={{
+            directions: ['left', 'right', 'up', 'down'],
+            minX: 0,
+            minY: 0,
+          }}
         />
       )}
 
