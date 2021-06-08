@@ -15,7 +15,7 @@ const Routes = () => (
       {/* Use this route to test the common-room without having to navigate all the way
       through the game */}
       {/* <Route exact path="/" component={SpeedTest} /> */}
-      <Route exact path="/control" component={Admin} />
+      <Route exact path="/control" component={Home} />
       <Route exact path="/common-room" component={CommonRoom} />
       <Route exact path="/quiz-results" render={(props) => <QuizResults {...props} /> } />
     </Switch>

@@ -9,10 +9,11 @@ import CONSTANTS from '../../domain/constants';
 import 'antd/dist/antd.css';
 import './styles.scss'
 
-const client = new W3CWebSocket(process.env.REACT_APP_SERVER_URL);
-
 const Admin = () => {
   const [connected, setConnectedStatus] = useState(false);
+
+  console.log('Trying to connect...')
+  const client = new W3CWebSocket(process.env.REACT_APP_SERVER_URL);
 
   /* Players - Example:
     {
@@ -40,7 +41,12 @@ const Admin = () => {
   const [quizAnswers, saveQuizAnswer] = useState({});
 
   client.onopen = () => {
+    console.log(`Connected to ${process.env.REACT_APP_SERVER_URL}`);
     setConnectedStatus(true);
+  };
+
+  this.client.onerror = () => {
+    console.log('Error trying to connect to server');
   };
 
   client.onmessage = (message) => {
