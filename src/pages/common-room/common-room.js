@@ -215,6 +215,7 @@ class CommonRoom extends Component {
   render() {
     const {
       showModal,
+      connected,
       loading,
       modalStage,
       showQuiz,
@@ -264,7 +265,7 @@ class CommonRoom extends Component {
             title={loading ? 'Loading...' : 'And the journey begins'}
             onButtonClick={this.onNextHandler}
           >
-            {loading && (
+            {(loading || !connected) && (
               <img className="loading" src={loadingImage} alt="loading"/>
             )}
 
