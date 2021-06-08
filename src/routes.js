@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/home/home';
 // import SpeedTest from './pages/speed-test/speed-test';
 import CommonRoom from './pages/common-room/common-room';
-import Admin from './pages/admin/admin';
+// import Admin from './pages/admin/admin';
 import QuizResults from './pages/quiz-results/quiz-results';
 
 const Routes = () => (
