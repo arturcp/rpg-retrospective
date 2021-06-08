@@ -1,10 +1,9 @@
 import React from 'react';
 
 import {
-  // BrowserRouter,
+  BrowserRouter,
   Switch,
   Route,
-  HashRouter
 } from 'react-router-dom';
 
 import Home from './pages/home/home';
@@ -14,7 +13,7 @@ import Admin from './pages/admin/admin';
 import QuizResults from './pages/quiz-results/quiz-results';
 
 const Routes = () => (
-  <HashRouter>
+  <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Home} />
       {/* Use this route to test the common-room without having to navigate all the way
@@ -24,7 +23,7 @@ const Routes = () => (
       <Route exact path="/common-room" component={CommonRoom} />
       <Route exact path="/quiz-results" render={(props) => <QuizResults {...props} /> } />
     </Switch>
-  </HashRouter>
+  </BrowserRouter>
 );
 
 export default Routes;

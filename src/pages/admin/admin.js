@@ -45,7 +45,7 @@ const Admin = () => {
     setConnectedStatus(true);
   };
 
-  this.client.onerror = () => {
+  client.onerror = () => {
     console.log('Error trying to connect to server');
   };
 

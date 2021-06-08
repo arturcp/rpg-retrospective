@@ -15,6 +15,10 @@ const header = () => (
         <Text>Role Playing Game - Retro</Text>
       </div>
     </Link>
+
+    <Link to="/admin" className="admin-link">
+      admin
+    </Link>
   </header>
 );
 
