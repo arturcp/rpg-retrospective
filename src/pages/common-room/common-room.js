@@ -316,7 +316,7 @@ class CommonRoom extends Component {
                 {modalStage === 'instructions' && (
                   <>
                     <p>Feel free to move around. When everyone is ready, you will see a modal with questions to answer.</p>
-                    <p>You will have to guess, one at a time, the favorite option of other players' chosen themes. Do you think you know them? We shall see.</p>
+                    <p>You will have to guess, one at a time, the favorite item of other players' chosen themes. Do you think you know them? We shall see.</p>
                     <p>The others will vote as well, trying to guess your favorite item. Those who guess right score a point (1 point for each correct answer). When in doubt, pray for the gods, they will guide your choice.</p>
                   </>
                 )}
