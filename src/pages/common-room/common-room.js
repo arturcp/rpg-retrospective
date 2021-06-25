@@ -277,7 +277,7 @@ class CommonRoom extends Component {
             )}
 
             {!loading && (
-              <>
+              <div style={{ marginBottom: '10px' }}>
                 {modalStage === 'initial' && (
                   <p>Welcome, {character.name}, to your fate. Your party is eager to know you before you depart to your mission together.</p>
                 )}
@@ -303,7 +303,7 @@ class CommonRoom extends Component {
                 {modalStage === 'answer' && (
                   <>
                     <p>Which {theme} is your favorite?</p>
-                    <Select defaultValue={themeOption1} style={{ width: 120 }} onChange={onQuizAnswerChangeHandler}>
+                    <Select defaultValue={themeOption1} style={{ width: '100%' }} onChange={onQuizAnswerChangeHandler}>
                       <Option value={themeOption1}>{themeOption1}</Option>
                       <Option value={themeOption2}>{themeOption2}</Option>
                       <Option value={themeOption3}>{themeOption3}</Option>
@@ -315,12 +315,12 @@ class CommonRoom extends Component {
 
                 {modalStage === 'instructions' && (
                   <>
-                    <p>Feel free to move around. When the adventure begins, you will see a control pane in the corner of the screen.</p>
-                    <p>There, you will find a button to claim your turn. On the player's turn, each one will exhibit the theme and show the items. </p>
-                    <p>The others will votem, trying to guess what is the favorite item. If you guess right, you score a point. When in doubt, pray for the gods, they will guide your choice.</p>
+                    <p>Feel free to move around. When everyone is ready, you will see a modal with questions to answer.</p>
+                    <p>You will have to guess, one at a time, the favorite option of other players' chosen themes. Do you think you know them? We shall see.</p>
+                    <p>The others will vote as well, trying to guess your favorite item. Those who guess right score a point (1 point for each correct answer). When in doubt, pray for the gods, they will guide your choice.</p>
                   </>
                 )}
-              </>
+              </div>
             )}
           </Modal>
         )}
