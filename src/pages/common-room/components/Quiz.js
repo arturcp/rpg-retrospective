@@ -8,7 +8,7 @@ const quiz = (props) => {
     <>
       {quiz && (
         <div className="quiz">
-          <h3>Which {quiz.theme} does {quiz.characterName} ({quiz.playerName}) prefer?</h3>
+          <h3>Which {quiz.theme} does {quiz.playerName} prefer?</h3>
           <div>
             <input type="radio" id="quiz-option1" name="quiz-option" value={quiz.option1} data-quiz-option />
             <label htmlFor="quiz-option1">{quiz.option1}</label>
